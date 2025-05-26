@@ -1,0 +1,127 @@
+{
+    "kind": "collectionType",
+        "collectionName": "users",
+            "info": {
+        "singularName": "user",
+            "pluralName": "users",
+                "displayName": "User",
+                    "description": "Extended user model"
+    },
+    "options": {
+        "draftAndPublish": false,
+            "timestamps": true
+    },
+    "pluginOptions": {
+        "users-permissions": {
+            "plugin": true
+        }
+    },
+    "attributes": {
+        "username": {
+            "type": "string",
+                "minLength": 3
+        },
+        "email": {
+            "type": "email",
+                "minLength": 6
+        },
+        "provider": {
+            "type": "string"
+        },
+        "password": {
+            "type": "password"
+        },
+        "resetPasswordToken": {
+            "type": "string"
+        },
+        "confirmationToken": {
+            "type": "string"
+        },
+        "confirmed": {
+            "type": "boolean",
+                "default": false
+        },
+        "blocked": {
+            "type": "boolean",
+                "default": false
+        },
+        "role": {
+            "type": "relation",
+                "relation": "manyToOne",
+                    "target": "plugin::users-permissions.role",
+                        "inversedBy": "users"
+        },
+        "apellido_materno": {
+            "type": "string"
+        },
+        "apellido_paterno": {
+            "type": "string"
+        },
+        "celular": {
+            "type": "string",
+                "required": true,
+                    "minLength": 9,
+                        "maxLength": 9,
+                            "regex": "^[0-9]{9}$"
+        },
+        "fecha_nacimiento": {
+            "type": "date"
+        },
+        "direccion": {
+            "type": "text"
+        },
+        "distrito": {
+            "type": "string"
+        },
+        "foto": {
+            "type": "media",
+                "multiple": false,
+                    "required": false
+        },
+        "tipo_documento": {
+            "type": "string"
+        },
+        "dni": {
+            "type": "string",
+                "unique": true,
+                    "required": true,
+                        "minLength": 8,
+                            "maxLength": 8,
+                                "regex": "^[0-9]{8}$"
+        },
+        "dni_frente": {
+            "type": "media",
+                "multiple": false,
+                    "allowedTypes": ["images"]
+        },
+        "dni_reverso": {
+            "type": "media",
+                "multiple": false,
+                    "allowedTypes": ["images"]
+        },
+        "sexo": {
+            "type": "string"
+        },
+        "estado_civil": {
+            "type": "string"
+        },
+        "telefono": {
+            "type": "string"
+        },
+        "instruccion": {
+            "type": "string"
+        },
+        "matriculas": {
+            "type": "relation",
+                "relation": "oneToMany",
+                    "target": "api::matricula.matricula",
+                        "mappedBy": "user"
+        },
+        "personal": {
+            "type": "relation",
+                "relation": "oneToOne",
+                    "target": "api::personal.personal",
+                        "mappedBy": "user"
+        }
+    }
+}
