@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personales",
+  "info": {
+    "singularName": "personal",
+    "pluralName": "personales",
+    "displayName": "Personal"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "display_name": {
+      "type": "string",
+      "configurable": false
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "memo": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "especialidad": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::especialidad.especialidad"
+    }
+  }
+}

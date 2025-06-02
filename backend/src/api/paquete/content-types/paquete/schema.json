@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "paquetes",
+  "info": {
+    "singularName": "paquete",
+    "pluralName": "paquetes",
+    "displayName": "Paquete",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": false
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "grupos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::grupo.grupo"
+    },
+    "archivado": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
