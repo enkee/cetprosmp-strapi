@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "calendarios",
+  "info": {
+    "singularName": "calendario",
+    "pluralName": "calendarios",
+    "displayName": "Calendario"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "fecha-ini": {
+      "type": "date",
+      "required": true
+    },
+    "fecha-fin": {
+      "type": "date",
+      "required": true
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": [
+        "Academico",
+        "Simulacro",
+        "Festividad"
+      ],
+      "default": "Academico",
+      "required": true
+    },
+    "semestre": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::semestre.semestre"
+    }
+  }
+}

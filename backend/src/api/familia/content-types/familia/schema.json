@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "familias",
+  "info": {
+    "singularName": "familia",
+    "pluralName": "familias",
+    "displayName": "Familia"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Sector": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sector.sector"
+    }
+  }
+}

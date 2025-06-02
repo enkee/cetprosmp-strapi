@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "matriculas",
+  "info": {
+    "singularName": "matricula",
+    "pluralName": "matriculas",
+    "displayName": "Matricula",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "recibo": {
+      "type": "string"
+    },
+    "fecha": {
+      "type": "date"
+    },
+    "grupo": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::grupo.grupo"
+    },
+    "paquete": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::paquete.paquete"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "archivado": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

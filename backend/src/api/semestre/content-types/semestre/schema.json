@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "semestres",
+  "info": {
+    "singularName": "semestre",
+    "pluralName": "semestres",
+    "displayName": "Semestre",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "director": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal"
+    },
+    "coordinador_1": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal"
+    },
+    "coordinador_2": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal"
+    }
+  }
+}

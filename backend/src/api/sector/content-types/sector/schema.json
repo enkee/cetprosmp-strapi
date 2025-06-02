@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sectores",
+  "info": {
+    "singularName": "sector",
+    "pluralName": "sectores",
+    "displayName": "Sector"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

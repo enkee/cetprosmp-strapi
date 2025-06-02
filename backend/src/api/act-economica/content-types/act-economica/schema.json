@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "act-economicas",
+  "info": {
+    "singularName": "act-economica",
+    "pluralName": "act-economicas",
+    "displayName": "Act-Economica",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": false
+    },
+    "especialidad": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::especialidad.especialidad"
+    },
+    "familia": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::familia.familia"
+    }
+  }
+}

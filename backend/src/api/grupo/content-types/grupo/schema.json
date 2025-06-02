@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grupos",
+  "info": {
+    "singularName": "grupo",
+    "pluralName": "grupos",
+    "displayName": "Grupo",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "nombre_display": {
+      "type": "string",
+      "unique": true
+    },
+    "turno": {
+      "type": "enumeration",
+      "enum": ["Mañana", "Tarde", "Noche"],
+      "required": true
+    },
+    "calendario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::calendario.calendario"
+    },
+    "modulo": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::modulo.modulo"
+    },
+    "descripcion": {
+      "type": "string"
+    },
+    "personal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal"
+    },
+    "archivado": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

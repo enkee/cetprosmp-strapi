@@ -34,6 +34,10 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }> &
       Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     expiresAt: Schema.Attribute.DateTime;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
@@ -369,10 +373,38 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiActEconomicaActEconomica
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'act_economicas';
+  info: {
+    displayName: 'Act-Economica';
+    pluralName: 'act-economicas';
+    singularName: 'act-economica';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::act-economica.act-economica'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCarreraCarrera extends Struct.CollectionTypeSchema {
   collectionName: 'carreras';
   info: {
-    description: '';
     displayName: 'Carrera';
     pluralName: 'carreras';
     singularName: 'carrera';
@@ -384,28 +416,42 @@ export interface ApiCarreraCarrera extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    descripcion: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
-    duracion: Schema.Attribute.Integer;
-    especialidad: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::especialidad.especialidad'
-    >;
-    imagen: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::carrera.carrera'
     > &
       Schema.Attribute.Private;
-    modulos: Schema.Attribute.Relation<'oneToMany', 'api::modulo.modulo'>;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    titulo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiDatoGeneralDatoGeneral extends Struct.SingleTypeSchema {
+  collectionName: 'datos_generales';
+  info: {
+    displayName: 'Dato-General';
+    pluralName: 'datos-generales';
+    singularName: 'dato-general';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dato-general.dato-general'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -416,7 +462,6 @@ export interface ApiEspecialidadEspecialidad
   extends Struct.CollectionTypeSchema {
   collectionName: 'especialidades';
   info: {
-    description: '';
     displayName: 'Especialidad';
     pluralName: 'especialidades';
     singularName: 'especialidad';
@@ -425,33 +470,17 @@ export interface ApiEspecialidadEspecialidad
     draftAndPublish: false;
   };
   attributes: {
-    carreras: Schema.Attribute.Relation<'oneToMany', 'api::carrera.carrera'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    descripcion_especialidad: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
-    familia: Schema.Attribute.Relation<'manyToOne', 'api::familia.familia'>;
-    imagen_destacada: Schema.Attribute.Media;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::especialidad.especialidad'
     > &
       Schema.Attribute.Private;
-    modulos: Schema.Attribute.Relation<'oneToMany', 'api::modulo.modulo'>;
-    personales: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::personal.personal'
-    >;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    titulo_act_economica: Schema.Attribute.String;
-    titulo_especialidad: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -461,7 +490,6 @@ export interface ApiEspecialidadEspecialidad
 export interface ApiFamiliaFamilia extends Struct.CollectionTypeSchema {
   collectionName: 'familias';
   info: {
-    description: '';
     displayName: 'Familia';
     pluralName: 'familias';
     singularName: 'familia';
@@ -473,27 +501,39 @@ export interface ApiFamiliaFamilia extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    descripcion: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
-    especialidades: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::especialidad.especialidad'
-    >;
-    imagen: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::familia.familia'
     > &
       Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    sector: Schema.Attribute.Relation<'manyToOne', 'api::sector.sector'>;
-    titulo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFechaFecha extends Struct.CollectionTypeSchema {
+  collectionName: 'fechas';
+  info: {
+    displayName: 'Fecha';
+    pluralName: 'fechas';
+    singularName: 'fecha';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::fecha.fecha'> &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -514,18 +554,11 @@ export interface ApiGrupoGrupo extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    horario: Schema.Attribute.Relation<'manyToOne', 'api::horario.horario'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::grupo.grupo'> &
       Schema.Attribute.Private;
-    matriculas: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::matricula.matricula'
-    >;
-    modulo: Schema.Attribute.Relation<'manyToOne', 'api::modulo.modulo'>;
-    personal: Schema.Attribute.Relation<'manyToOne', 'api::personal.personal'>;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    semestre: Schema.Attribute.Relation<'manyToOne', 'api::semestre.semestre'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -535,7 +568,6 @@ export interface ApiGrupoGrupo extends Struct.CollectionTypeSchema {
 export interface ApiHorarioHorario extends Struct.CollectionTypeSchema {
   collectionName: 'horarios';
   info: {
-    description: '';
     displayName: 'Horario';
     pluralName: 'horarios';
     singularName: 'horario';
@@ -547,17 +579,14 @@ export interface ApiHorarioHorario extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    grupos: Schema.Attribute.Relation<'oneToMany', 'api::grupo.grupo'>;
-    imagen_destacada: Schema.Attribute.Media;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::horario.horario'
     > &
       Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    titulo_dias: Schema.Attribute.String;
-    turno: Schema.Attribute.Enumeration<['ma\u00F1ana', 'tarde', 'noche']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -567,7 +596,6 @@ export interface ApiHorarioHorario extends Struct.CollectionTypeSchema {
 export interface ApiMatriculaMatricula extends Struct.CollectionTypeSchema {
   collectionName: 'matriculas';
   info: {
-    description: '';
     displayName: 'Matricula';
     pluralName: 'matriculas';
     singularName: 'matricula';
@@ -579,20 +607,17 @@ export interface ApiMatriculaMatricula extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fecha_matricula: Schema.Attribute.Date & Schema.Attribute.Required;
-    grupo: Schema.Attribute.Relation<'manyToOne', 'api::grupo.grupo'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::matricula.matricula'
     > &
       Schema.Attribute.Private;
-    num_recibo: Schema.Attribute.Integer & Schema.Attribute.Required;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    usuario: Schema.Attribute.Relation<'manyToOne', 'api::usuario.usuario'>;
   };
 }
 
@@ -607,32 +632,17 @@ export interface ApiModuloModulo extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    carrera: Schema.Attribute.Relation<'manyToOne', 'api::carrera.carrera'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    descripcion_modulo: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
-    especialidad: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::especialidad.especialidad'
-    >;
-    grupos: Schema.Attribute.Relation<'oneToMany', 'api::grupo.grupo'>;
-    imagen_destacada: Schema.Attribute.Media<'images'>;
-    imagenes: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::modulo.modulo'
     > &
       Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    titulo_modulo: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -647,33 +657,48 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
     singularName: 'noticia';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
-    contenido: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fecha_publicacion: Schema.Attribute.Date;
-    imagen_destacada: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::noticia.noticia'
     > &
       Schema.Attribute.Private;
-    publicado: Schema.Attribute.Boolean;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    titulo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPaquetePaquete extends Struct.CollectionTypeSchema {
+  collectionName: 'paquetes';
+  info: {
+    displayName: 'Paquete';
+    pluralName: 'paquetes';
+    singularName: 'paquete';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::paquete.paquete'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -694,62 +719,41 @@ export interface ApiPersonalPersonal extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    especialidad: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::especialidad.especialidad'
-    >;
-    grupos: Schema.Attribute.Relation<'oneToMany', 'api::grupo.grupo'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::personal.personal'
     > &
       Schema.Attribute.Private;
-    memo: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    usuario: Schema.Attribute.Relation<'oneToOne', 'api::usuario.usuario'>;
   };
 }
 
 export interface ApiPruebaPrueba extends Struct.CollectionTypeSchema {
   collectionName: 'pruebas';
   info: {
-    description: '';
     displayName: 'Prueba';
     pluralName: 'pruebas';
     singularName: 'prueba';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Descripcion: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
-    Descripcion_2: Schema.Attribute.Blocks;
-    Descripcion_3: Schema.Attribute.RichText;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::prueba.prueba'
     > &
       Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -771,23 +775,14 @@ export interface ApiSectorSector extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    descripcion: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'defaultHtml';
-        }
-      >;
-    familias: Schema.Attribute.Relation<'oneToMany', 'api::familia.familia'>;
-    imagen_destacada: Schema.Attribute.Media;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::sector.sector'
     > &
       Schema.Attribute.Private;
+    Nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    titulo: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -797,7 +792,6 @@ export interface ApiSectorSector extends Struct.CollectionTypeSchema {
 export interface ApiSemestreSemestre extends Struct.CollectionTypeSchema {
   collectionName: 'semestres';
   info: {
-    description: '';
     displayName: 'Semestre';
     pluralName: 'semestres';
     singularName: 'semestre';
@@ -809,66 +803,14 @@ export interface ApiSemestreSemestre extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    grupos: Schema.Attribute.Relation<'oneToMany', 'api::grupo.grupo'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::semestre.semestre'
     > &
       Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    semestre_descripcion: Schema.Attribute.Text;
-    semestre_titulo: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiUsuarioUsuario extends Struct.CollectionTypeSchema {
-  collectionName: 'usuarios';
-  info: {
-    displayName: 'Usuario';
-    pluralName: 'usuarios';
-    singularName: 'usuario';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    apellidos: Schema.Attribute.String;
-    correo_personal: Schema.Attribute.Email;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    domicilio_direccion: Schema.Attribute.String;
-    domicilio_distrito: Schema.Attribute.String;
-    estado_civil: Schema.Attribute.String;
-    fecha_actualizacion: Schema.Attribute.Date;
-    fecha_creacion: Schema.Attribute.Date;
-    fecha_nacimiento: Schema.Attribute.Date;
-    foto_dni_frente: Schema.Attribute.Media<'images'>;
-    foto_dni_reverso: Schema.Attribute.Media<'images'>;
-    grado_instruccion: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::usuario.usuario'
-    > &
-      Schema.Attribute.Private;
-    matriculas: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::matricula.matricula'
-    >;
-    nombres: Schema.Attribute.String;
-    num_celular: Schema.Attribute.String;
-    num_telefono: Schema.Attribute.String;
-    numero_documento: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    retrato: Schema.Attribute.Media<'images'>;
-    rol: Schema.Attribute.String;
-    sexo: Schema.Attribute.String;
-    tipo_documento: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1320,11 +1262,10 @@ export interface PluginUsersPermissionsRole
 
 export interface PluginUsersPermissionsUser
   extends Struct.CollectionTypeSchema {
-  collectionName: 'up_users';
+  collectionName: 'users';
   info: {
-    description: '';
+    description: 'Extended user model';
     displayName: 'User';
-    name: 'user';
     pluralName: 'users';
     singularName: 'user';
   };
@@ -1332,42 +1273,71 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
     timestamps: true;
   };
+  pluginOptions: {
+    'users-permissions': {
+      plugin: true;
+    };
+  };
   attributes: {
+    apellido_materno: Schema.Attribute.String;
+    apellido_paterno: Schema.Attribute.String;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
+    celular: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 9;
+        minLength: 9;
+      }>;
+    confirmationToken: Schema.Attribute.String;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    email: Schema.Attribute.Email &
+    direccion: Schema.Attribute.Text;
+    distrito: Schema.Attribute.String;
+    dni: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 8;
+        minLength: 8;
+      }>;
+    dni_frente: Schema.Attribute.Media<'images'>;
+    dni_reverso: Schema.Attribute.Media<'images'>;
+    email: Schema.Attribute.Email &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    estado_civil: Schema.Attribute.String;
+    fecha_nacimiento: Schema.Attribute.Date;
+    foto: Schema.Attribute.Media;
+    instruccion: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
-    password: Schema.Attribute.Password &
-      Schema.Attribute.Private &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
+    matriculas: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::matricula.matricula'
+    >;
+    password: Schema.Attribute.Password;
+    personal: Schema.Attribute.Relation<'oneToOne', 'api::personal.personal'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    resetPasswordToken: Schema.Attribute.String;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    sexo: Schema.Attribute.String;
+    telefono: Schema.Attribute.String;
+    tipo_documento: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     username: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
@@ -1384,19 +1354,22 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::act-economica.act-economica': ApiActEconomicaActEconomica;
       'api::carrera.carrera': ApiCarreraCarrera;
+      'api::dato-general.dato-general': ApiDatoGeneralDatoGeneral;
       'api::especialidad.especialidad': ApiEspecialidadEspecialidad;
       'api::familia.familia': ApiFamiliaFamilia;
+      'api::fecha.fecha': ApiFechaFecha;
       'api::grupo.grupo': ApiGrupoGrupo;
       'api::horario.horario': ApiHorarioHorario;
       'api::matricula.matricula': ApiMatriculaMatricula;
       'api::modulo.modulo': ApiModuloModulo;
       'api::noticia.noticia': ApiNoticiaNoticia;
+      'api::paquete.paquete': ApiPaquetePaquete;
       'api::personal.personal': ApiPersonalPersonal;
       'api::prueba.prueba': ApiPruebaPrueba;
       'api::sector.sector': ApiSectorSector;
       'api::semestre.semestre': ApiSemestreSemestre;
-      'api::usuario.usuario': ApiUsuarioUsuario;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
