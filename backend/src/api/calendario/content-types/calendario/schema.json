@@ -42,6 +42,10 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::semestre.semestre"
+    },
+    "archivado": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

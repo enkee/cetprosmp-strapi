@@ -1,9 +1,12 @@
+import type { StrapiApp } from '@strapi/strapi/admin';
+
 export default {
     config: {
-        locales: ['es'], // Habilita el idioma español
-        currentLocale: 'es', // <- Establece el idioma por defecto a español
+        locales: ['es'],
+        currentLocale: 'es',
     },
-    bootstrap() {
-        // Puedes añadir lógica adicional aquí si lo necesitas
+
+    bootstrap(app: StrapiApp) {
+
     },
 };

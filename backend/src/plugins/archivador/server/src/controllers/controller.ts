@@ -1,12 +1,19 @@
 import type { Core } from '@strapi/strapi';
 
 const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
-  index(ctx) {
-    ctx.body = strapi
+  async index(ctx) {
+    const semestreId = parseInt(ctx.params.semestreId);
+
+    if (isNaN(semestreId)) {
+      ctx.throw(400, 'ID de semestre inválido');
+    }
+
+    const resultado = await strapi
       .plugin('archivador')
-      // the name of the service file & the method.
       .service('service')
-      .getWelcomeMessage();
+      .toggle(semestreId);
+
+    ctx.send({ mensaje: resultado.mensaje });
   },
 });
 

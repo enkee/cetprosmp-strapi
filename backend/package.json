@@ -30,7 +30,7 @@
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
-    "@strapi/types": "^5.14.0",
+    "@strapi/types": "^5.15.0",
     "@types/lodash": "^4.17.17",
     "@types/node": "^20.17.57",
     "@types/react": "^18",

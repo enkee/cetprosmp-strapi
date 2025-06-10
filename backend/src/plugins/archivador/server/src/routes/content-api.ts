@@ -1,11 +1,13 @@
+import { Auth } from "@strapi/types/dist/modules";
+
 export default [
   {
-    method: 'GET',
-    path: '/',
-    // name of the controller file & the method.
+    method: 'PUT',
+    path: '/:semestreId',
     handler: 'controller.index',
     config: {
       policies: [],
     },
   },
 ];
+
