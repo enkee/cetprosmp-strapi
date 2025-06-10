@@ -31,6 +31,10 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::personal.personal"
+    },
+    "archivado": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

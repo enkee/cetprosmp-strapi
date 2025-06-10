@@ -1,9 +1,0 @@
-{
-  "settings": {
-    "listView": {
-      "filters": {
-        "archivado": { "$eq": false }
-      }
-    }
-  }
-}

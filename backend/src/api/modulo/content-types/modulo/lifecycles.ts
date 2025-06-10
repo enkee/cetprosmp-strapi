@@ -14,7 +14,7 @@ export default {
         const { result } = event;
         console.log('🔧 Módulo actualizado:', result.id);
         // Se usa `setTimeout` para evitar conflictos de sincronización de relaciones
-        setTimeout(() => procesarImpactoEnGruposYPaquetes(result.id), 50);
+        setTimeout(() => procesarImpactoEnGruposYPaquetes(result.id), 100);
     },
 };
 
