@@ -9,6 +9,7 @@ import {
   Drawer,
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
+import { Link } from 'react-router-dom';
 
 type Props = {
   mobileOpen: boolean;
@@ -31,6 +32,7 @@ export default function SideMenu({ mobileOpen, onClose, onOpen }: Props) {
           <ListItemText primary="Noticias" />
         </ListItemButton>
       </List>
+      <Link to="/">Inicio</Link> | <Link to="/publicaciones">Publicaciones</Link>
     </div>
   );
 
