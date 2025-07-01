@@ -64,6 +64,9 @@
     "apellido_paterno": {
       "type": "string"
     },
+    "apellidos": {
+      "type": "string"
+    },
     "celular": {
       "type": "string",
       "required": true,
@@ -80,20 +83,18 @@
     "distrito": {
       "type": "string"
     },
+    "avatar": { 
+      "type": "string"
+     },
     "foto": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "tipo_documento": {
       "type": "enumeration",
-      "enum": [
-        "DNI",
-        "CE"
-      ],
+      "enum": ["DNI", "CE"],
       "default": "DNI",
       "required": true
     },
@@ -109,35 +110,21 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     },
     "dni_reverso": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     },
     "sexo": {
       "type": "enumeration",
-      "enum": [
-        "F",
-        "M"
-      ]
+      "enum": ["F", "M"]
     },
     "estado_civil": {
       "type": "enumeration",
-      "enum": [
-        "Soltero(a)",
-        "Casado(a)",
-        "Viudo(a)",
-        "Divorciado(a)"
-      ]
+      "enum": ["Soltero", "Casado(a)", "Viudo(a)", "Divorciado(a)"]
     },
     "telefono": {
       "type": "string"

@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "tituloComercial": "Estética Personal",
+    "carreras": [
+      {
+        "id": 1,
+        "tituloComercial": "Peluquería y Barberia",
+        "codigo": "S3496-1-001",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 1,
+            "tituloComercial": "Corte De Cabello, Barba y Peinado",
+            "horas": 528,
+            "activo": true
+          },
+          {
+            "id": 2,
+            "tituloComercial": "Tratamiento Capilar, Trituración, Ondulación, Laceado",
+            "horas": 528,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "tituloComercial": "Electricidad y Electrónica",
+    "carreras": [
+      {
+        "id": 2,
+        "tituloComercial": "Electrónica",
+        "codigo": null,
+        "duracion": 1000,
+        "modulos": [
+          {
+            "id": 3,
+            "tituloComercial": "Reparacion de Celulares",
+            "horas": 300,
+            "activo": true
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "tituloComercial": "Mantenimiento Básico de Sistemas Eléctricos",
+        "codigo": null,
+        "duracion": 1000,
+        "modulos": [
+          {
+            "id": 4,
+            "tituloComercial": "Instalaciones Eléctricas",
+            "horas": 300,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "tituloComercial": "Computación",
+    "carreras": [
+      {
+        "id": 4,
+        "tituloComercial": "Soporte técnico de computadoras",
+        "codigo": "J2662-1-001",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 5,
+            "tituloComercial": "Atención De Incidentes y Problemas de Operatividad en El Centro de Cómputo",
+            "horas": 528,
+            "activo": true
+          },
+          {
+            "id": 6,
+            "tituloComercial": "Monitoreo y Acciones de Mantenimiento de Centros de Cómputo",
+            "horas": 528,
+            "activo": true
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "tituloComercial": "Operación de Computadoras",
+        "codigo": null,
+        "duracion": 1000,
+        "modulos": [
+          {
+            "id": 8,
+            "tituloComercial": "Diseño Publicitario",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 9,
+            "tituloComercial": "Diseño Web",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 7,
+            "tituloComercial": "Ofimática",
+            "horas": 300,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "tituloComercial": "Confección Textil",
+    "carreras": [
+      {
+        "id": 6,
+        "tituloComercial": "Corte y Ensamblaje",
+        "codigo": "CO714-1-003",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 11,
+            "tituloComercial": "Técnicas de Confección de Prendas de Vestir",
+            "horas": 544,
+            "activo": true
+          },
+          {
+            "id": 10,
+            "tituloComercial": "Técnicas de Tizado, Tendido y Corte de Prendas de Vestir",
+            "horas": 560,
+            "activo": true
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "tituloComercial": "Costura y Acabados",
+        "codigo": "CO714-1-004",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 12,
+            "tituloComercial": "Oper. Maquinas, Conf. Prendas Damas, Niños, Deportivas",
+            "horas": 544,
+            "activo": true
+          },
+          {
+            "id": 13,
+            "tituloComercial": "Técnicas de Procesos de Acabados en Prendas de Vestir",
+            "horas": 528,
+            "activo": true
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "tituloComercial": "Bordado en prendas de vestir",
+        "codigo": "C0714-1-002",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 14,
+            "tituloComercial": "Bordados Computarizado",
+            "horas": 528,
+            "activo": true
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "tituloComercial": "Confección Textil",
+        "codigo": null,
+        "duracion": 1000,
+        "modulos": [
+          {
+            "id": 16,
+            "tituloComercial": "Tejido a Mano",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 15,
+            "tituloComercial": "Tejido a Maquina",
+            "horas": 300,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "tituloComercial": "Cuero y Calzado",
+    "carreras": [
+      {
+        "id": 10,
+        "tituloComercial": "Confección de calzado",
+        "codigo": "C0715-1-001",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 20,
+            "tituloComercial": "Aparado, Armado y Acabado de Calzado",
+            "horas": 528,
+            "activo": true
+          },
+          {
+            "id": 19,
+            "tituloComercial": "Patronaje y Corte de Calzado",
+            "horas": 528,
+            "activo": true
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "tituloComercial": "Artículos de Cuero y Marroquinería",
+        "codigo": "C0715-1-002",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 18,
+            "tituloComercial": "Ensamblado y Acabado de Artículos de Cuero",
+            "horas": 528,
+            "activo": true
+          },
+          {
+            "id": 17,
+            "tituloComercial": "Patronaje y Corte de Artículos de Cuero y Marroquinería",
+            "horas": 528,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "tituloComercial": "Manualidades",
+    "carreras": [
+      {
+        "id": 12,
+        "tituloComercial": "Manualidades",
+        "codigo": null,
+        "duracion": 1000,
+        "modulos": [
+          {
+            "id": 22,
+            "tituloComercial": "Bisutería",
+            "horas": 150,
+            "activo": true
+          },
+          {
+            "id": 24,
+            "tituloComercial": "Cerámica al Frio",
+            "horas": 150,
+            "activo": true
+          },
+          {
+            "id": 21,
+            "tituloComercial": "Decoración de Eventos Especiales",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 23,
+            "tituloComercial": "Pintura Decorativa",
+            "horas": 150,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "tituloComercial": "Hostelería y Turismo",
+    "carreras": [
+      {
+        "id": 13,
+        "tituloComercial": "Panadería y Pastelería",
+        "codigo": "C0610-1-001",
+        "duracion": 1056,
+        "modulos": [
+          {
+            "id": 25,
+            "tituloComercial": "Productos Pastelería y Panadería 1",
+            "horas": 528,
+            "activo": true
+          },
+          {
+            "id": 26,
+            "tituloComercial": "Productos Pastelería y Panadería 2",
+            "horas": 528,
+            "activo": true
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "tituloComercial": "Asistencia en Pastelería y Panadería",
+        "codigo": null,
+        "duracion": 1000,
+        "modulos": [
+          {
+            "id": 28,
+            "tituloComercial": "Buffet",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 29,
+            "tituloComercial": "Cocina Nacional",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 30,
+            "tituloComercial": "Técnicas Culinarias",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 27,
+            "tituloComercial": "Técnicas de Decoración de Tortas",
+            "horas": 300,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "tituloComercial": "Carpintería",
+    "carreras": [
+      {
+        "id": 15,
+        "tituloComercial": "Mantenimiento Básico de Casas y Edificios",
+        "codigo": null,
+        "duracion": 1000,
+        "modulos": [
+          {
+            "id": 31,
+            "tituloComercial": "Carpintería en Madera",
+            "horas": 300,
+            "activo": true
+          },
+          {
+            "id": 32,
+            "tituloComercial": "Carpintería en Melamina",
+            "horas": 300,
+            "activo": true
+          }
+        ]
+      }
+    ]
+  }
+]

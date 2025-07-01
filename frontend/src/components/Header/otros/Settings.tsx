@@ -18,8 +18,9 @@ export default function Settings() {
         <SettingsIcon />
       </IconButton>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Configuración general</MenuItem>
-        <MenuItem onClick={handleClose}>Preferencias</MenuItem>
+        <MenuItem onClick={handleClose}>Claros</MenuItem>
+        <MenuItem onClick={handleClose}>Oscuro</MenuItem>
+        <MenuItem onClick={handleClose}>Institucional</MenuItem>
       </Menu>
     </>
   );

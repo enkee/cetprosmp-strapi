@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IconButton, Menu, Box, Typography, Avatar } from "@mui/material";
-import { googleApps } from "../../../data/googleApps";
+import { googleApps } from "./data/googleApps";
 import { useUser } from "../../../context/UserContext";
 
 export default function Apps() {
@@ -72,10 +72,8 @@ export default function Apps() {
                   bgcolor: "action.hover",
                   borderRadius: 2,
                 },
-                pt: 0.5,
-                pb: 0.5,
-                pr: 1,
-                pl: 1,
+                py: 0.5,
+                px: 1,
               }}
               onClick={handleClose}
             >

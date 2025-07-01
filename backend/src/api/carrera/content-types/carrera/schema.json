@@ -14,6 +14,9 @@
     "titulo": {
       "type": "string"
     },
+    "titulo-comercial": {
+      "type": "string"
+    },
     "codigo": {
       "type": "string"
     },
