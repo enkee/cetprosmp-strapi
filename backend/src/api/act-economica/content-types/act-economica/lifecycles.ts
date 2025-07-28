@@ -1,4 +1,4 @@
-import { generarMenuCarreras } from '../../../../utils/generar-menu';
+import { generarMenuCarreras } from '../../../../utils/_otros/generar-menu';
 
 export default {
     async afterCreate() {

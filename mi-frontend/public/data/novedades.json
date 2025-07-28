@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "titulo": "Noticias"
+    
+  },
+  {
+    "id": 2,
+    "titulo": "Eventos"
+    
+  },
+  {
+    "id": 3,
+    "titulo": "Comunicados"
+    
+  }
+]

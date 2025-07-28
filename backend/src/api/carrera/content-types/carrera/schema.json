@@ -30,6 +30,9 @@
     "duracion": {
       "type": "integer"
     },
+    "descripcion2": {
+      "type": "blocks"
+    },
     "creditos": {
       "type": "integer"
     },
@@ -52,10 +55,19 @@
         "audios"
       ]
     },
+    "imagenes": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
     "act-economica": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::act-economica.act-economica"
+    },
+    "slug": {
+      "type": "string"
     }
   }
 }

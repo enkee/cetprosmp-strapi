@@ -29,6 +29,10 @@
     "correo": {
       "type": "email"
     },
+    "mapa": {
+      "type": "string",
+      "regex": "^https:\\/\\/maps\\.app\\.goo\\.gl\\/[A-Za-z0-9]+$"
+    },
     "paginaWeb": {
       "type": "string",
       "regex": "^(https?://)?([\\w.-]+)\\.([a-z\\.]{2,6})([/\\w\\.-]*)*/?$"
@@ -36,6 +40,22 @@
     "facebook": {
       "type": "string",
       "regex": "^(https?:\\/\\/)?(www\\.)?facebook\\.com\\/[a-zA-Z0-9(.?)?]"
+    },
+    "youtube": {
+      "type": "string",
+      "regex": "^(https?:\\/\\/)?(www\\.)?(youtube\\.com\\/(watch\\?v=|embed\\/|shorts\\/|@[\u0000-\u007F]{1,})|youtu\\.be\\/)[\\w\\-]{0,11}.*$"
+    },
+    "twitter": {
+      "type": "string",
+      "regex": "^(https?:\\/\\/)?(www\\.)?(twitter\\.com|x\\.com)\\/([A-Za-z0-9_]{1,15})(\\/status\\/\\d+)?$"
+    },
+    "instagram": {
+      "type": "string",
+      "regex": "^(https?:\\/\\/)?(www\\.)?instagram\\.com\\/(p|reel|tv|[A-Za-z0-9_.]+)\\/?$"
+    },
+    "tiktok": {
+      "type": "string",
+      "regex": "^(https?:\\/\\/)?(www\\.)?tiktok\\.com\\/@[A-Za-z0-9._]+(\\/video\\/\\d+)?\\/?$"
     },
     "ruc": {
       "type": "string",

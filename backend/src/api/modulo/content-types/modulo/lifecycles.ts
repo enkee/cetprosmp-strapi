@@ -3,7 +3,9 @@
 // - generarTituloPaquete: para actualizar el campo `titulo` de los paquetes
 import { generarNombreDisplay } from '../../../grupo/content-types/grupo/utils/generar-nombre-display';
 import { generarTituloPaquete } from '../../../../utils/generar-titulo-paquete';
-import { generarMenuCarreras } from '../../../../utils/generar-menu';
+//import { generarMenuCarreras } from '../../../../utils/_otros/generar-menu';
+import { generarCarruselPortada } from '../../../../utils/generar-carrusel';
+import { generarModulos } from '../../../../utils/generar-modulos';
 
 export default {
     /**
@@ -18,15 +20,21 @@ export default {
         setTimeout(() => procesarImpactoEnGruposYPaquetes(result.id), 100);
 
         //actuliza la lista de menucarreras
-        await generarMenuCarreras(strapi);
+        //await generarMenuCarreras(strapi);
+        await generarCarruselPortada(strapi);
+        await generarModulos(strapi);
     },
 
     async afterCreate() {
-        await generarMenuCarreras(strapi);
+        //await generarMenuCarreras(strapi);
+        await generarCarruselPortada(strapi);
+        await generarModulos(strapi);
     },
 
     async afterDelete() {
-        await generarMenuCarreras(strapi);
+        //await generarMenuCarreras(strapi);
+        await generarCarruselPortada(strapi);
+        await generarModulos(strapi);
     },
 };
 

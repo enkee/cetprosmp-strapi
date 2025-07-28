@@ -1,0 +1,158 @@
+'use client';
+// src/components/Header/MenuPrincipal/NovedadesMenuWrapper.tsx
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Button, Popper } from "@mui/material";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+
+// Componentes personalizados
+import {
+  MenuContainer,
+  MenuItemBox,
+  ModuleItemBox,
+  MenuText,
+} from "@/components/Header/MenuPrincipal/FullCustomMenu/FullCustomMenu";
+
+// Tipos
+type SubItem = {
+  id: number;
+  titulo: string;
+};
+
+type Item = {
+  id: number;
+  titulo: string;
+  contenido?: SubItem[];
+};
+
+export default function NovedadesMenuWrapper() {
+  const anchoMenu = "156px";
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState<Item[]>([]);
+  const [subItems, setSubItems] = useState<SubItem[] | null>(null);
+  const [anchorSub, setAnchorSub] = useState<HTMLElement | null>(null);
+
+  const anchorRef = useRef<HTMLButtonElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/data/novedades.json");
+        const data: Item[] = await res.json();
+
+        const sorted = [
+          ...data
+            .filter((i) => i.contenido && i.contenido.length > 0)
+            .sort((a, b) => a.id - b.id),
+          ...data
+            .filter((i) => !i.contenido || i.contenido.length === 0)
+            .sort((a, b) => a.id - b.id),
+        ];
+
+        setItems(sorted);
+      } catch (err) {
+        setItems([]); // JSON inválido
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // ✅ Escucha el evento global para cerrar el menú
+  useEffect(() => {
+    const handleCloseAllMenus = () => {
+      setOpen(false);
+      setSubItems(null);
+      setAnchorSub(null);
+    };
+
+    window.addEventListener("cerrar-todos-los-menus", handleCloseAllMenus);
+    return () => {
+      window.removeEventListener("cerrar-todos-los-menus", handleCloseAllMenus);
+    };
+  }, []);
+
+  const startCloseTimer = () => {
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+      setSubItems(null);
+      setAnchorSub(null);
+    }, 150);
+  };
+
+  const cancelCloseTimer = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const handleItemEnter = (
+    e: React.MouseEvent<HTMLDivElement>,
+    contenido?: SubItem[]
+  ) => {
+    if (contenido && contenido.length > 0) {
+      const sortedSub = [...contenido].sort((a, b) => a.id - b.id);
+      setSubItems(sortedSub);
+      setAnchorSub(e.currentTarget);
+    } else {
+      setSubItems(null);
+      setAnchorSub(null);
+    }
+  };
+
+  return (
+    <Box
+      ref={wrapperRef}
+      onMouseEnter={() => {
+        cancelCloseTimer();
+        setOpen(true);
+      }}
+      onMouseLeave={startCloseTimer}
+    >
+      <Button color="inherit" ref={anchorRef}>
+        Novedades
+      </Button>
+
+      {items.length > 0 && (
+        <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" sx={{ zIndex: 1300 }}>
+          <MenuContainer ancho={anchoMenu} sx={{ ml: -5 }}>
+            {items.map((item) => {
+              const hasSubmenu = item.contenido && item.contenido.length > 0;
+
+              return hasSubmenu ? (
+                <MenuItemBox
+                  key={item.id}
+                  onMouseEnter={(e) => handleItemEnter(e, item.contenido)}
+                  iconRight={
+                    <ArrowRightIcon
+                      fontSize="small"
+                      sx={{ mt: 0.5, alignSelf: "flex-start" }}
+                    />
+                  }
+                >
+                  <MenuText>{item.titulo}</MenuText>
+                </MenuItemBox>
+              ) : (
+                <ModuleItemBox key={item.id}>
+                  <MenuText>{item.titulo}</MenuText>
+                </ModuleItemBox>
+              );
+            })}
+          </MenuContainer>
+        </Popper>
+      )}
+
+      <Popper open={Boolean(subItems)} anchorEl={anchorSub} placement="right-start" sx={{ zIndex: 1300 }}>
+        <MenuContainer ancho={anchoMenu} sx={{ mt: 0 }}>
+          {subItems?.map((sub) => (
+            <ModuleItemBox key={sub.id}>
+              <MenuText>{sub.titulo}</MenuText>
+            </ModuleItemBox>
+          ))}
+        </MenuContainer>
+      </Popper>
+    </Box>
+  );
+}

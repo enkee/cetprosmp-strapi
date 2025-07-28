@@ -27,6 +27,9 @@
         "preset": "defaultHtml"
       }
     },
+    "descripcion2": {
+      "type": "blocks"
+    },
     "horas": {
       "type": "integer"
     },
@@ -57,6 +60,14 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::carrera.carrera"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "videosYoutube": {
+      "type": "component",
+      "repeatable": true,
+      "component": "default.video-youtube"
     }
   }
 }

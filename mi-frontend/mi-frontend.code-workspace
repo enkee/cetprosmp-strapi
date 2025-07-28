@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "workbench.colorTheme": "Default Dark+", // Puedes cambiar a otro si deseas
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#0D47A1",      // Azul muy oscuro
+      "titleBar.inactiveBackground": "#0B3C91",
+      "titleBar.activeForeground": "#ffffff",
+      "activityBar.background": "#0A3576",         // Barra lateral
+      "sideBar.background": "#0F1B2B",             // Fondo oscuro para panel lateral
+      "editor.background": "#0D1117",              // Fondo oscuro del editor
+      "editor.foreground": "#E3F2FD",              // Texto celeste claro
+      "statusBar.background": "#0A3576",           // Barra inferior
+      "statusBar.foreground": "#ffffff",
+      "tab.activeBackground": "#102840",           // Pestaña activa
+      "tab.inactiveBackground": "#0A1F33",         // Pestañas inactivas
+      "tab.activeForeground": "#BBDEFB",           // Texto en pestaña activa
+      "editorLineNumber.foreground": "#1E88E5",    // Números de línea
+      "editorCursor.foreground": "#42A5F5",        // Cursor celeste
+      "editor.selectionBackground": "#1565C090",   // Selección azul con transparencia
+      "editorIndentGuide.background": "#1E2A38",   // Guías de indentación
+      "editorWhitespace.foreground": "#2B3D50"     // Espacios en blanco visibles
+    }
+  }
+}

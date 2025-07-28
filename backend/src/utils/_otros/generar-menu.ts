@@ -5,6 +5,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export async function generarMenuCarreras(strapi: any) {
+    const nombreArchivo = 'carreras.json';
+    const rutaBase = process.env.RUTA_BASE_JSON!;
+    const rutaAbsoluta = path.resolve(__dirname, rutaBase, nombreArchivo);
+
     // Obtener módulos con su carrera > act-economica > especialidad
     const modulos = await strapi.entityService.findMany('api::modulo.modulo', {
         fields: ['id', 'titulo-comercial', 'horas', 'activo'],
@@ -15,19 +19,19 @@ export async function generarMenuCarreras(strapi: any) {
                     'act-economica': {
                         populate: {
                             especialidad: {
-                                fields: ['id', 'titulo-comercial']
-                            }
-                        }
-                    }
-                }
-            }
+                                fields: ['id', 'titulo-comercial'],
+                            },
+                        },
+                    },
+                },
+            },
         },
         filters: {
-            activo: true
-        }
+            activo: true,
+        },
     });
 
-    // Agrupar módulos en estructura especialidad > carrera > módulos
+    // Agrupar en estructura especialidad > carrera > módulos
     const estructura: Record<number, any> = {};
 
     for (const mod of modulos) {
@@ -63,7 +67,7 @@ export async function generarMenuCarreras(strapi: any) {
         });
     }
 
-    // Convertir estructura a array ordenado
+    // Convertir a array ordenado
     const data = Object.values(estructura).map((esp: any) => ({
         id: esp.id,
         tituloComercial: esp.tituloComercial,
@@ -78,20 +82,21 @@ export async function generarMenuCarreras(strapi: any) {
         })),
     }));
 
-    // Ruta y escritura condicional del archivo
-    const rutaRelativa = process.env.RUTA_MENU_JSON!; //|| '../../../../frontend/public/data/carreras.js';
-    const rutaFrontend = path.resolve(__dirname, rutaRelativa); //process.env.RUTA_MENU_JSON_ABS!
     const nuevoContenido = JSON.stringify(data, null, 2);
 
-    if (fs.existsSync(rutaFrontend)) {
-        const contenidoActual = fs.readFileSync(rutaFrontend, 'utf-8');
-        if (contenidoActual === nuevoContenido) {
-            strapi.log.info('ℹ️ Sin cambios en carreras.json.');
-            return;
+    try {
+        if (fs.existsSync(rutaAbsoluta)) {
+            const contenidoActual = fs.readFileSync(rutaAbsoluta, 'utf-8');
+            if (contenidoActual === nuevoContenido) {
+                strapi.log.info(`ℹ️ Sin cambios en ${nombreArchivo}.`);
+                return;
+            }
         }
-    }
 
-    fs.mkdirSync(path.dirname(rutaFrontend), { recursive: true });
-    fs.writeFileSync(rutaFrontend, nuevoContenido, 'utf-8');
-    strapi.log.info(`✅ carreras.json actualizado correctamente.`);
+        fs.mkdirSync(path.dirname(rutaAbsoluta), { recursive: true });
+        fs.writeFileSync(rutaAbsoluta, nuevoContenido, 'utf-8');
+        strapi.log.info(`✅ ${nombreArchivo} actualizado correctamente.`);
+    } catch (error) {
+        strapi.log.error(`❌ Error al guardar ${nombreArchivo}: ${error}`);
+    }
 }
