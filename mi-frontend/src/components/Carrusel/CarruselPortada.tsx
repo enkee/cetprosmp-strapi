@@ -42,44 +42,66 @@ export default function CarruselPortada() {
 
   const prevRef = useRef<HTMLDivElement | null>(null);
   const nextRef = useRef<HTMLDivElement | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     fetch('/data/carrusel.json')
       .then(res => res.json())
       .then(json => {
-        if (isMobile) {
-          const bienvenida: Especialidad = {
-            id: -1,
-            tituloComercial: 'Bienvenida',
-            fondo: null,
-            portada: null,
-            carreras: [],
-          };
-          setData([bienvenida, ...json]);
-        } else {
-          setData(json);
-        }
+        const bienvenida: Especialidad = {
+          id: -1,
+          tituloComercial: 'Bienvenida',
+          fondo: null,
+          portada: null,
+          carreras: [],
+        };
+        setData(isMobile ? [bienvenida, ...json] : json);
       })
       .catch(err => console.error('Error cargando carrusel:', err));
   }, [isMobile]);
 
-  // ⏱️ Retraso del autoplay de 1 minuto en móviles
   useEffect(() => {
     if (isMobile && swiperRef.current) {
       const timeout = setTimeout(() => {
-        if (swiperRef.current) {
-          swiperRef.current.params.autoplay.delay = 5000; // delay de 5 segundos por slide
-          swiperRef.current.autoplay.start(); // Inicia autoplay manualmente
+        if (swiperRef.current?.autoplay) {
+          swiperRef.current.params.autoplay.delay = 5000;
+          swiperRef.current.autoplay.start();
         }
-      }, 7000); // 1 minuto
+      }, 7000);
       return () => clearTimeout(timeout);
     }
   }, [isMobile, data]);
 
-  // 🛑 Detener autoplay si el usuario interactúa
+  const reiniciarAutoplay = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      swiperRef.current?.autoplay?.start?.();
+    }, 3000);
+  };
+
   const handleClickOrTap = () => {
     swiperRef.current?.autoplay?.stop?.();
+    reiniciarAutoplay();
   };
+
+  const handleMouseEnter = () => {
+    swiperRef.current?.autoplay?.stop?.();
+  };
+
+  const handleMouseLeave = () => {
+    reiniciarAutoplay();
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // fuerza la actualización de los botones
+      if (swiperRef.current && swiperRef.current.navigation) {
+        swiperRef.current.navigation.init();
+        swiperRef.current.navigation.update();
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
 
   if (data.length === 0) return null;
 
@@ -91,6 +113,8 @@ export default function CarruselPortada() {
         margin: '0 auto',
         position: 'relative',
       }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Botones de navegación */}
       <Box ref={prevRef} sx={botonNavegacion('left')}>&lt;</Box>
@@ -101,7 +125,6 @@ export default function CarruselPortada() {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
 
-          // 🟢 Si no es móvil, iniciamos autoplay inmediatamente
           if (!isMobile) {
             if (swiper.params.autoplay && typeof swiper.params.autoplay === 'object') {
               swiper.params.autoplay.delay = 5000;
@@ -111,7 +134,7 @@ export default function CarruselPortada() {
         }}
         onClick={handleClickOrTap}
         onTouchStart={handleClickOrTap}
-        autoplay={false} // ⛔ Autoplay apagado al cargar
+        autoplay={false}
         loop
         navigation={{
           prevEl: prevRef.current,

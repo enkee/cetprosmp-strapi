@@ -29,10 +29,6 @@
     "correo": {
       "type": "email"
     },
-    "mapa": {
-      "type": "string",
-      "regex": "^https:\\/\\/maps\\.app\\.goo\\.gl\\/[A-Za-z0-9]+$"
-    },
     "paginaWeb": {
       "type": "string",
       "regex": "^(https?://)?([\\w.-]+)\\.([a-z\\.]{2,6})([/\\w\\.-]*)*/?$"

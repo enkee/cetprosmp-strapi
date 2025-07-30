@@ -3,63 +3,68 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, Popper } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import Link from "next/link";
+import { cerrarTodosLosMenus } from "./_otros/CerrarTodoMenus";
 
-// Componentes personalizados
 import {
   MenuContainer,
   MenuItemBox,
-  ModuleItemBox,
   MenuText,
 } from "@/components/Header/MenuPrincipal/FullCustomMenu/FullCustomMenu";
 
 type SubItem = {
   id: number;
   titulo: string;
+  slug: string;
 };
 
 type Item = {
   id: number;
   titulo: string;
+  slug: string;
   contenido?: SubItem[];
 };
 
 export default function NosotrosMenuWrapper() {
   const anchoMenu = "156px";
-
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
   const [subItems, setSubItems] = useState<SubItem[] | null>(null);
-  const [anchorSubMenu, setAnchorSubMenu] = useState<HTMLElement | null>(null);
+  const [anchorSub, setAnchorSub] = useState<HTMLElement | null>(null);
 
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const anchorRef = useRef<HTMLButtonElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/data/nosotros.json");
-      const data: Item[] = await res.json();
+      try {
+        const res = await fetch("/data/nosotros.json");
+        const data: Item[] = await res.json();
 
-      const withContent = data
-        .filter((item) => item.contenido && item.contenido.length > 0)
-        .sort((a, b) => a.id - b.id);
+        const sorted = [
+          ...data
+            .filter((i) => i.contenido && i.contenido.length > 0)
+            .sort((a, b) => a.id - b.id),
+          ...data
+            .filter((i) => !i.contenido || i.contenido.length === 0)
+            .sort((a, b) => a.id - b.id),
+        ];
 
-      const withoutContent = data
-        .filter((item) => !item.contenido || item.contenido.length === 0)
-        .sort((a, b) => a.id - b.id);
-
-      setItems([...withContent, ...withoutContent]);
+        setItems(sorted);
+      } catch (err) {
+        setItems([]);
+      }
     };
 
     fetchData();
   }, []);
 
-  // ✅ Escucha evento global para cerrar menús
   useEffect(() => {
     const handleCloseAllMenus = () => {
       setOpen(false);
       setSubItems(null);
-      setAnchorSubMenu(null);
+      setAnchorSub(null);
     };
 
     window.addEventListener("cerrar-todos-los-menus", handleCloseAllMenus);
@@ -72,7 +77,7 @@ export default function NosotrosMenuWrapper() {
     closeTimer.current = setTimeout(() => {
       setOpen(false);
       setSubItems(null);
-      setAnchorSubMenu(null);
+      setAnchorSub(null);
     }, 150);
   };
 
@@ -88,11 +93,12 @@ export default function NosotrosMenuWrapper() {
     contenido?: SubItem[]
   ) => {
     if (contenido && contenido.length > 0) {
-      setAnchorSubMenu(e.currentTarget);
-      setSubItems([...contenido].sort((a, b) => a.id - b.id));
+      const sortedSub = [...contenido].sort((a, b) => a.id - b.id);
+      setSubItems(sortedSub);
+      setAnchorSub(e.currentTarget);
     } else {
       setSubItems(null);
-      setAnchorSubMenu(null);
+      setAnchorSub(null);
     }
   };
 
@@ -101,7 +107,7 @@ export default function NosotrosMenuWrapper() {
       ref={wrapperRef}
       onMouseEnter={() => {
         cancelCloseTimer();
-        if (items.length > 0) setOpen(true);
+        setOpen(true);
       }}
       onMouseLeave={startCloseTimer}
     >
@@ -109,37 +115,53 @@ export default function NosotrosMenuWrapper() {
         Nosotros
       </Button>
 
-      <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" sx={{ zIndex: 1300 }}>
-        <MenuContainer ancho={anchoMenu} sx={{ ml: -5 }}>
-          {items.map((item) =>
-            item.contenido && item.contenido.length > 0 ? (
-              <MenuItemBox
-                key={item.id}
-                onMouseEnter={(e) => handleItemEnter(e, item.contenido)}
-                iconRight={
-                  <ArrowRightIcon
-                    fontSize="small"
-                    sx={{ mt: 0.5, alignSelf: "flex-start" }}
-                  />
-                }
-              >
-                <MenuText>{item.titulo}</MenuText>
-              </MenuItemBox>
-            ) : (
-              <ModuleItemBox key={item.id}>
-                <MenuText>{item.titulo}</MenuText>
-              </ModuleItemBox>
-            )
-          )}
-        </MenuContainer>
-      </Popper>
+      {items.length > 0 && (
+        <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" sx={{ zIndex: 1300 }}>
+          <MenuContainer ancho={anchoMenu} sx={{ ml: -5 }}>
+            {items.map((item) =>
+              item.contenido && item.contenido.length > 0 ? (
+                <MenuItemBox
+                  key={item.id}
+                  onMouseEnter={(e) => handleItemEnter(e, item.contenido)}
+                  iconRight={
+                    <ArrowRightIcon
+                      fontSize="small"
+                      sx={{ mt: 0.5, alignSelf: "flex-start" }}
+                    />
+                  }
+                >
+                  <MenuText>{item.titulo}</MenuText>
+                </MenuItemBox>
+              ) : (
+                <Link
+                  key={item.id}
+                  href={`/nosotros/${item.slug}`}
+                  onClick={cerrarTodosLosMenus}
+                  style={{ textDecoration: "none" }}
+                >
+                  <MenuItemBox>
+                    <MenuText>{item.titulo}</MenuText>
+                  </MenuItemBox>
+                </Link>
+              )
+            )}
+          </MenuContainer>
+        </Popper>
+      )}
 
-      <Popper open={Boolean(subItems)} anchorEl={anchorSubMenu} placement="right-start" sx={{ zIndex: 1300 }}>
+      <Popper open={Boolean(subItems)} anchorEl={anchorSub} placement="right-start" sx={{ zIndex: 1300 }}>
         <MenuContainer ancho={anchoMenu} sx={{ mt: 0 }}>
           {subItems?.map((sub) => (
-            <ModuleItemBox key={sub.id}>
-              <MenuText>{sub.titulo}</MenuText>
-            </ModuleItemBox>
+            <Link
+              key={sub.id}
+              href={`/nosotros/${sub.slug}`}
+              onClick={cerrarTodosLosMenus}
+              style={{ textDecoration: "none" }}
+            >
+              <MenuItemBox>
+                <MenuText>{sub.titulo}</MenuText>
+              </MenuItemBox>
+            </Link>
           ))}
         </MenuContainer>
       </Popper>

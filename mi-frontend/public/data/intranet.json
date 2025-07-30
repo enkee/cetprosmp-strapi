@@ -2,26 +2,16 @@
   {
     "id": "grupos",
     "titulo": "Grupos",
-    "subitems": [
-      { "id": "2025-1", "titulo": "Semestre 2025-1" },
-      { "id": "2025-2", "titulo": "Semestre 2025-2" }
-    ]
+    "slug": "grupos"   
   },
   {
     "id": "inventarios",
     "titulo": "Inventarios",
-    "subitems": [
-      { "id": "taller1", "titulo": "Taller 1" },
-      { "id": "taller2", "titulo": "Taller 2" }
-    ]
+    "slug": "inventarios" 
   },
   {
     "id": "programacion",
     "titulo": "Programación",
-    "subitems": [
-      { "id": "competencias", "titulo": "Competencias" },
-      { "id": "indicadores", "titulo": "Indicadores" },
-      { "id": "contenidos", "titulo": "Contenidos" }
-    ]
+    "slug": "programacion" 
   }
 ]

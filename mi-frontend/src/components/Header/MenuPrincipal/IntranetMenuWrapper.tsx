@@ -3,22 +3,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, Popper } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import Link from "next/link";
+import { cerrarTodosLosMenus } from "@/components/Header/MenuPrincipal/_otros/CerrarTodoMenus";
 
 import {
   MenuContainer,
   MenuItemBox,
-  ModuleItemBox,
   MenuText,
 } from "@/components/Header/MenuPrincipal/FullCustomMenu/FullCustomMenu";
 
 type SubItem = {
   id: number;
   titulo: string;
+  slug: string;
 };
 
 type Item = {
   id: number;
   titulo: string;
+  slug: string;
   contenido?: SubItem[];
 };
 
@@ -52,7 +55,6 @@ export default function IntranetMenuWrapper() {
     fetchData();
   }, []);
 
-  // ✅ Escucha evento global para cerrar todos los menús
   useEffect(() => {
     const handleCerrarMenus = () => {
       setOpen(false);
@@ -109,7 +111,7 @@ export default function IntranetMenuWrapper() {
 
       {items.length > 0 && (
         <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" sx={{ zIndex: 1300 }}>
-          <MenuContainer ancho={anchoMenu}  sx={{ ml: -5 }}>
+          <MenuContainer ancho={anchoMenu} sx={{ ml: -5 }}>
             {items.map((item) =>
               item.contenido && item.contenido.length > 0 ? (
                 <MenuItemBox
@@ -125,9 +127,16 @@ export default function IntranetMenuWrapper() {
                   <MenuText>{item.titulo}</MenuText>
                 </MenuItemBox>
               ) : (
-                <ModuleItemBox key={item.id}>
-                  <MenuText>{item.titulo}</MenuText>
-                </ModuleItemBox>
+                <Link
+                  key={item.id}
+                  href={`/intranet/${item.slug}`}
+                  onClick={cerrarTodosLosMenus}
+                  style={{ textDecoration: "none" }}
+                >
+                  <MenuItemBox>
+                    <MenuText>{item.titulo}</MenuText>
+                  </MenuItemBox>
+                </Link>
               )
             )}
           </MenuContainer>
@@ -138,9 +147,16 @@ export default function IntranetMenuWrapper() {
         <Popper open anchorEl={anchorSubMenu} placement="right-start" sx={{ zIndex: 1300 }}>
           <MenuContainer sx={{ mt: 0 }}>
             {subItems.map((sub) => (
-              <ModuleItemBox key={sub.id}>
-                <MenuText>{sub.titulo}</MenuText>
-              </ModuleItemBox>
+              <Link
+                key={sub.id}
+                href={`/intranet/${sub.slug}`}
+                onClick={cerrarTodosLosMenus}
+                style={{ textDecoration: "none" }}
+              >
+                <MenuItemBox>
+                  <MenuText>{sub.titulo}</MenuText>
+                </MenuItemBox>
+              </Link>
             ))}
           </MenuContainer>
         </Popper>

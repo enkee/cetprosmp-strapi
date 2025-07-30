@@ -1,16 +1,18 @@
 [
   {
     "id": 1,
-    "titulo": "Misión"
-    
-  },
-  {
-    "id": 2,
-    "titulo": "Contacto"
+    "titulo": "Misión / Visión",
+    "slug": "mision-vision"
   },
   {
     "id": 3,
-    "titulo": "Personal"
+    "titulo": "Contacto",
+    "slug": "contacto"
+  },
+  {
+    "id": 2,
+    "titulo": "Personal",
+    "slug": "personal"
     
   }
 ]

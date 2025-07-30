@@ -1,17 +1,20 @@
 [
   {
     "id": 1,
-    "titulo": "Noticias"
+    "titulo": "Noticias",
+    "slug": "noticias"
     
   },
   {
     "id": 2,
-    "titulo": "Eventos"
+    "titulo": "Eventos",
+    "slug": "eventos"
     
   },
   {
     "id": 3,
-    "titulo": "Comunicados"
+    "titulo": "Comunicados",
+    "slug": "comunicados"
     
   }
 ]

@@ -32,7 +32,7 @@ export default function VideoGallery({ videos }: VideoGalleryProps) {
                 const id = url.split('v=')[1]?.split('&')[0] || url.split('youtu.be/')[1]?.split('?')[0];
                 const thumb = id
                     ? `https://img.youtube.com/vi/${id}/0.jpg`
-                    : '/imagenes/img-predeterminada.avif';
+                    : '/imagenes/comunes/img-predeterminada.avif';
 
                 return (
                     <Box

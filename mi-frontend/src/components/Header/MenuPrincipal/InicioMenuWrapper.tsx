@@ -1,20 +1,21 @@
+'use client';
 // src/components/InicioMenuWrapper.tsx
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, Popper } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import NextLink from 'next/link';
+import NextLink from "next/link";
+import { cerrarTodosLosMenus } from "@/components/Header/MenuPrincipal/_otros/CerrarTodoMenus";
 
 // Componentes personalizados
 import {
   MenuContainer,
   MenuItemBox,
-  ModuleItemBox,
   MenuText,
 } from "@/components/Header/MenuPrincipal/FullCustomMenu/FullCustomMenu";
 
 // Tipos
-type SubItem = { id: number; titulo: string };
-type Item = { id: number; titulo: string; subitems?: SubItem[] };
+type SubItem = { id: number; titulo: string; slug: string };
+type Item = { id: number; titulo: string; slug: string; subitems?: SubItem[] };
 
 export default function InicioMenuWrapper() {
   const anchoMenu = "256px";
@@ -25,7 +26,6 @@ export default function InicioMenuWrapper() {
   const anchorRef = useRef<HTMLAnchorElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +46,6 @@ export default function InicioMenuWrapper() {
     fetchData();
   }, []);
 
-  // ✅ Escucha evento global para cerrar menús
   useEffect(() => {
     const handleCloseAllMenus = () => {
       setOpen(false);
@@ -110,11 +109,9 @@ export default function InicioMenuWrapper() {
 
       {items.length > 0 && (
         <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" sx={{ zIndex: 1300 }}>
-          <MenuContainer sx={{ ml: -12 }}>
-            {items.map((item) => {
-              const hasSubmenu = item.subitems && item.subitems.length > 0;
-
-              return hasSubmenu ? (
+          <MenuContainer sx={{ ml: -12 }} ancho={anchoMenu}>
+            {items.map((item) =>
+              item.subitems && item.subitems.length > 0 ? (
                 <MenuItemBox
                   key={item.id}
                   onMouseEnter={(e) => handleItemEnter(e, item.subitems)}
@@ -128,22 +125,36 @@ export default function InicioMenuWrapper() {
                   <MenuText>{item.titulo}</MenuText>
                 </MenuItemBox>
               ) : (
-                <ModuleItemBox key={item.id}>
-                  <MenuText>{item.titulo}</MenuText>
-                </ModuleItemBox>
-              );
-            })}
+                <NextLink
+                  key={item.id}
+                  href={`/inicio/${item.slug}`}
+                  onClick={cerrarTodosLosMenus}
+                  style={{ textDecoration: "none" }}
+                >
+                  <MenuItemBox>
+                    <MenuText>{item.titulo}</MenuText>
+                  </MenuItemBox>
+                </NextLink>
+              )
+            )}
           </MenuContainer>
         </Popper>
       )}
 
       {subitems && (
-        <Popper open={true} anchorEl={anchorSubmenu} placement="right-start" sx={{ zIndex: 1300 }}>
+        <Popper open anchorEl={anchorSubmenu} placement="right-start" sx={{ zIndex: 1300 }}>
           <MenuContainer sx={{ mt: 0 }}>
             {subitems.map((sub) => (
-              <ModuleItemBox key={sub.id}>
-                <MenuText>{sub.titulo}</MenuText>
-              </ModuleItemBox>
+              <NextLink
+                key={sub.id}
+                href={`/inicio/${sub.slug}`}
+                onClick={cerrarTodosLosMenus}
+                style={{ textDecoration: "none" }}
+              >
+                <MenuItemBox>
+                  <MenuText>{sub.titulo}</MenuText>
+                </MenuItemBox>
+              </NextLink>
             ))}
           </MenuContainer>
         </Popper>

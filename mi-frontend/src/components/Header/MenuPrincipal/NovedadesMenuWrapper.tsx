@@ -3,12 +3,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, Popper } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import Link from "next/link";
+import { cerrarTodosLosMenus } from "./_otros/CerrarTodoMenus";
 
 // Componentes personalizados
 import {
   MenuContainer,
   MenuItemBox,
-  ModuleItemBox,
   MenuText,
 } from "@/components/Header/MenuPrincipal/FullCustomMenu/FullCustomMenu";
 
@@ -16,11 +17,13 @@ import {
 type SubItem = {
   id: number;
   titulo: string;
+  slug: string;
 };
 
 type Item = {
   id: number;
   titulo: string;
+  slug: string;
   contenido?: SubItem[];
 };
 
@@ -59,7 +62,6 @@ export default function NovedadesMenuWrapper() {
     fetchData();
   }, []);
 
-  // ✅ Escucha el evento global para cerrar el menú
   useEffect(() => {
     const handleCloseAllMenus = () => {
       setOpen(false);
@@ -116,7 +118,12 @@ export default function NovedadesMenuWrapper() {
       </Button>
 
       {items.length > 0 && (
-        <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" sx={{ zIndex: 1300 }}>
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          placement="bottom-start"
+          sx={{ zIndex: 1300 }}
+        >
           <MenuContainer ancho={anchoMenu} sx={{ ml: -5 }}>
             {items.map((item) => {
               const hasSubmenu = item.contenido && item.contenido.length > 0;
@@ -135,21 +142,40 @@ export default function NovedadesMenuWrapper() {
                   <MenuText>{item.titulo}</MenuText>
                 </MenuItemBox>
               ) : (
-                <ModuleItemBox key={item.id}>
-                  <MenuText>{item.titulo}</MenuText>
-                </ModuleItemBox>
+                <Link
+                  key={item.id}
+                  href={`/novedades/${item.slug}`}
+                  onClick={cerrarTodosLosMenus}
+                  style={{ textDecoration: "none" }}
+                >
+                  <MenuItemBox>
+                    <MenuText>{item.titulo}</MenuText>
+                  </MenuItemBox>
+                </Link>
               );
             })}
           </MenuContainer>
         </Popper>
       )}
 
-      <Popper open={Boolean(subItems)} anchorEl={anchorSub} placement="right-start" sx={{ zIndex: 1300 }}>
+      <Popper
+        open={Boolean(subItems)}
+        anchorEl={anchorSub}
+        placement="right-start"
+        sx={{ zIndex: 1300 }}
+      >
         <MenuContainer ancho={anchoMenu} sx={{ mt: 0 }}>
           {subItems?.map((sub) => (
-            <ModuleItemBox key={sub.id}>
-              <MenuText>{sub.titulo}</MenuText>
-            </ModuleItemBox>
+            <Link
+              key={sub.id}
+              href={`/novedades/${sub.slug}`}
+              onClick={cerrarTodosLosMenus}
+              style={{ textDecoration: "none" }}
+            >
+              <MenuItemBox>
+                <MenuText>{sub.titulo}</MenuText>
+              </MenuItemBox>
+            </Link>
           ))}
         </MenuContainer>
       </Popper>

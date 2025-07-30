@@ -9,7 +9,7 @@ import PortadaImagen from './PortadaImagen';
 import EspecialidadTitulo from './EspecialidadTitulo'; // Asegúrate de que la ruta sea correcta
 
 
-const fondoDefault = '/imagenes/fondo-predeterminado.jpg';
+const fondoDefault = '/imagenes/comunes/fondo-predeterminado.jpg';
 
 export default function CarruselSlide({ especialidad }: { especialidad: Especialidad }) {
   const theme = useTheme();

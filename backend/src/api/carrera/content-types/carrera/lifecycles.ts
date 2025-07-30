@@ -1,4 +1,4 @@
-import { generarMenuCarreras } from '../../../../utils/_otros/generar-menu';
+//import { generarMenuCarreras } from '../../../../utils/_otros/generar-menu';
 import { generarCarruselPortada } from '../../../../utils/generar-carrusel';
 import { generarCarreras } from '../../../../utils/generar-carreras';
 

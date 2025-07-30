@@ -10,7 +10,7 @@ export default function CarruselBienvenidaSlide() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const fondoDefault = '/imagenes/fondo-predeterminado.jpg';
+  const fondoDefault = '/imagenes/comunes/fondo-predeterminado.jpg';
   const portadaDefault = '/imagenes/cetpro_SMP_portada.jpg';
 
   return (

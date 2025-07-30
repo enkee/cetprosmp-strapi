@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publicaciones",
+  "info": {
+    "singularName": "publicacion",
+    "pluralName": "publicaciones",
+    "displayName": "Publicación",
+    "description": "Agrupa noticias, eventos y avisos"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": ["noticia", "evento", "aviso"],
+      "required": true
+    },
+    "descripcionCorta": {
+      "type": "text"
+    },
+    "contenido": {
+      "type": "richtext"
+    },
+    "contenido2": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "fechaPublicacion": {
+      "type": "date",
+      "required": true
+    },
+    "fechaEventoInicio": {
+      "type": "datetime"
+    },
+    "fechaEventoFin": {
+      "type": "datetime"
+    },
+    "ubicacion": {
+      "type": "string"
+    },
+    "destacado": {
+      "type": "boolean",
+      "default": false
+    },
+    "imagenPrincipal": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "galeria": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "videosYoutube": {
+      "type": "component",
+      "repeatable": true,
+      "component": "default.video-youtube"
+    }
+  }
+}
