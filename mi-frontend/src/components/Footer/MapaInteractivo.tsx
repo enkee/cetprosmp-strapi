@@ -18,6 +18,7 @@ const MapaInteractivo: React.FC<MapaInteractivoProps> = ({ lat, lng, zoom = 18 }
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`;
         script.async = true;
+        script.defer = true;
         script.onload = () => {
             const google = (window as any).google;
             if (google && mapRef.current) {

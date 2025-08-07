@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { BoxProps } from '@mui/system';
 import Image from 'next/image';
 
-const portadaDefault = '/imagenes/portada-predeterminada.png';
+const portadaDefault = process.env.NEXT_PUBLIC_DEFAULT_IMG_URL!;
 
 interface PortadaImagenProps extends BoxProps {
   portada: string | null;

@@ -1,0 +1,73 @@
+{
+    "kind": "collectionType",
+    "collectionName": "carreras",
+    "info": {
+        "singularName": "carrera",
+        "pluralName": "carreras",
+        "displayName": "Carrera",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "titulo": {
+            "type": "string"
+        },
+        "titulo-comercial": {
+            "type": "string"
+        },
+        "codigo": {
+            "type": "string"
+        },
+        "descripcion": {
+            "type": "customField",
+            "customField": "plugin::ckeditor5.CKEditor",
+            "options": {
+                "preset": "defaultHtml"
+            }
+        },
+        "duracion": {
+            "type": "integer"
+        },
+        "descripcion2": {
+            "type": "blocks"
+        },
+        "creditos": {
+            "type": "integer"
+        },
+        "nivel": {
+            "type": "enumeration",
+            "enum": [
+                "Auxiliar Técnico",
+                "Técnico",
+                "Profesional"
+            ]
+        },
+        "imagen": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "imagenes": {
+            "type": "media",
+            "multiple": true,
+            "required": false,
+            "allowedTypes": ["images"]
+        },
+        "act-economica": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::act-economica.act-economica"
+        },
+        "slug": {
+            "type": "string"
+        }
+    }
+}

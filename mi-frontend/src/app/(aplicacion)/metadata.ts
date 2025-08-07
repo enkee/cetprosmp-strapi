@@ -23,7 +23,7 @@ const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://tusitio.com/imagenes/portada.jpg',
+                url: process.env.NEXT_PUBLIC_DEFAULT_IMG_URL!,
                 width: 1200,
                 height: 630,
                 alt: 'Portada CETPRO SMP',

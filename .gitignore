@@ -1,2 +1,45 @@
+# ─── GENERAL ─────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*.bak
+*.pem
+
+# ─── DEPENDENCIAS ────────────────────────
 node_modules/
-.env
+.pnp/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ─── ARCHIVOS DE ENTORNO ────────────────
+#.env*
+!.env.example
+backend/.env*
+!backend/.env.example
+mi-frontend/.env*
+!mi-frontend/.env.example
+
+# ─── NEXT.JS FRONTEND (mi-frontend) ─────
+mi-frontend/.next/
+mi-frontend/out/
+mi-frontend/build/
+mi-frontend/.vercel
+mi-frontend/coverage
+mi-frontend/next-env.d.ts
+mi-frontend/*.tsbuildinfo
+
+# ─── STRAPI BACKEND (backend) ───────────
+backend/.cache/
+backend/build/
+backend/public/uploads/
+backend/coverage
+
+# ─── EDITORES / SISTEMAS ────────────────
+.vscode/
+.idea/

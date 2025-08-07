@@ -55,17 +55,17 @@ export default async function ModuloDetallePage({
     Array.isArray(imagenes) && imagenes.length > 0
       ? imagenes.map((img: any) =>
         typeof img === 'string'
-          ? img.trim() || '/imagenes/img-predeterminada.avif'
-          : img?.url?.trim() || '/imagenes/img-predeterminada.avif'
+          ? img.trim() || process.env.NEXT_PUBLIC_DEFAULT_IMG_URL
+          : img?.url?.trim() || process.env.NEXT_PUBLIC_DEFAULT_IMG_URL
       )
-      : ['/imagenes/img-predeterminada.avif'];
+      : [process.env.NEXT_PUBLIC_DEFAULT_IMG_URL];
 
   const videosFinales: string[] =
     Array.isArray(videosYoutube) && videosYoutube.length > 0
       ? videosYoutube.map((v: any) =>
-        v.url?.includes('youtube.com') ? v.url : 'https://www.youtube.com/watch?v=qQ-_Nm7HgLo'
+        v.url?.includes('youtube.com') ? v.url : process.env.NEXT_PUBLIC_DEFAULT_VIDEO_URL
       )
-      : ['https://www.youtube.com/watch?v=qQ-_Nm7HgLo'];
+      : [process.env.NEXT_PUBLIC_DEFAULT_VIDEO_URL];
 
   return (
     <main>

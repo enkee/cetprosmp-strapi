@@ -1,0 +1,73 @@
+{
+    "kind": "collectionType",
+    "collectionName": "modulos",
+    "info": {
+        "singularName": "modulo",
+        "pluralName": "modulos",
+        "displayName": "Modulo",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "titulo": {
+            "type": "string"
+        },
+        "titulo-comercial": {
+            "type": "string"
+        },
+        "orden": {
+            "type": "integer"
+        },
+        "descripcion": {
+            "type": "customField",
+            "customField": "plugin::ckeditor5.CKEditor",
+            "options": {
+                "preset": "defaultHtml"
+            }
+        },
+        "descripcion2": {
+            "type": "blocks"
+        },
+        "horas": {
+            "type": "integer"
+        },
+        "creditos": {
+            "type": "integer"
+        },
+        "metas": {
+            "type": "integer",
+            "default": 15
+        },
+        "imagenes": {
+            "type": "media",
+            "multiple": true,
+            "required": false,
+            "allowedTypes": ["images"]
+        },
+        "imagen": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": ["images"]
+        },
+        "activo": {
+            "type": "boolean",
+            "default": true
+        },
+        "carrera": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::carrera.carrera"
+        },
+        "slug": {
+            "type": "string"
+        },
+        "videosYoutube": {
+            "type": "component",
+            "repeatable": true,
+            "component": "default.video-youtube"
+        }
+    }
+}

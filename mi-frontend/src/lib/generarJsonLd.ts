@@ -11,7 +11,7 @@ export function generarJsonLd(especialidad: Especialidad): object {
             : 'Curso técnico en CETPRO San Martín de Porres.';
 
     const imagenDestacada =
-        especialidad.imagenes?.[0]?.url || '/imagenes/comunes/img-predeterminada.avif';
+        especialidad.imagenes?.[0]?.url || process.env.NEXT_PUBLIC_DEFAULT_IMG_URL;
 
     return {
         "@context": "https://schema.org",

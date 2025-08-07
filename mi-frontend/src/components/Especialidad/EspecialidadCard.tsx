@@ -43,7 +43,7 @@ const EspecialidadCard: React.FC<Especialidad> = ({
   const imagenFinal =
     typeof imagen === 'string' && imagen.trim() !== ''
       ? imagen
-      : '/imagenes/comunes/img-predeterminada.avif';
+      : process.env.NEXT_PUBLIC_DEFAULT_IMG_URL;
 
   return (
     <Card

@@ -18,7 +18,7 @@ export default function PersonalDetallePage({ params }: Props) {
 
   const imagen = persona.user?.foto?.trim()
     ? persona.user.foto
-    : '/imagenes/comunes/img-predeterminada.avif';
+    : process.env.NEXT_PUBLIC_DEFAULT_IMG_URL!;
 
   const memoHtml = persona.memo || '<p>Sin reseña disponible.</p>';
 

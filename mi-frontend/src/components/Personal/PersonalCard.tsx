@@ -27,7 +27,7 @@ const PersonalCard: React.FC<Personal> = ({ id, displayName, memo, user, especia
     const imagenFinal =
         user?.foto && user.foto.trim() !== ''
             ? user.foto
-            : '/imagenes/comunes/img-predeterminada.avif';
+            : process.env.NEXT_PUBLIC_DEFAULT_IMG_URL;
 
     return (
         <Card

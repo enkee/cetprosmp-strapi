@@ -9,7 +9,7 @@ import PortadaImagen from './PortadaImagen';
 import EspecialidadTitulo from './EspecialidadTitulo'; // Asegúrate de que la ruta sea correcta
 
 
-const fondoDefault = '/imagenes/comunes/fondo-predeterminado.jpg';
+const fondoDefault = process.env.NEXT_PUBLIC_DEFAULT_BACKGROUND_URL;
 
 export default function CarruselSlide({ especialidad }: { especialidad: Especialidad }) {
   const theme = useTheme();

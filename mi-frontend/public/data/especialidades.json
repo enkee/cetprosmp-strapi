@@ -1,7 +1,7 @@
 [
   {
     "id": 3,
-    "titulo": "Computación e Informátic",
+    "titulo": "Computación e Informática",
     "tituloComercial": "Computación",
     "slug": "computacion",
     "descripcion2": [
@@ -90,8 +90,18 @@
     "imagen": "http://localhost:1337/uploads/computacion_fondo01_e17724e761.avif",
     "imagenes": [
       "http://localhost:1337/uploads/computacion01_a_ee8a8aed01.png",
-      "http://localhost:1337/uploads/computacion02_a_26bae19d57.png"
+      "http://localhost:1337/uploads/computacion02_a_26bae19d57.png",
+      "http://localhost:1337/uploads/paseo_campo_992a19249f.png"
     ]
+  },
+  {
+    "id": 1,
+    "titulo": "Estética Personal",
+    "tituloComercial": "Estética Personal",
+    "slug": "estetica-personal",
+    "descripcion2": [],
+    "imagen": null,
+    "imagenes": []
   },
   {
     "id": 2,
@@ -143,15 +153,6 @@
     "titulo": "Carpintería",
     "tituloComercial": "Carpintería",
     "slug": "carpinteria",
-    "descripcion2": [],
-    "imagen": null,
-    "imagenes": []
-  },
-  {
-    "id": 1,
-    "titulo": "Estética Personal",
-    "tituloComercial": "Estética Personal",
-    "slug": "estetica-personal",
     "descripcion2": [],
     "imagen": null,
     "imagenes": []

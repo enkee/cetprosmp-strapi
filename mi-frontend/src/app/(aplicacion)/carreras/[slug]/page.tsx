@@ -61,10 +61,10 @@ export default async function CarreraDetallePage({
   const imagenesFinales: string[] = imagenes?.length
     ? imagenes.map((img: any) =>
         typeof img === 'string'
-          ? img.trim() || '/imagenes/comunes/img-predeterminada.avif'
-          : img?.url?.trim() || '/imagenes/comunes/img-predeterminada.avif'
+          ? img.trim() || process.env.NEXT_PUBLIC_DEFAULT_IMG_URL
+          : img?.url?.trim() || process.env.NEXT_PUBLIC_DEFAULT_IMG_URL
       )
-    : ['/imagenes/comunes/img-predeterminada.avif', '/imagenes/comunes/img-predeterminada.avif'];
+    : [process.env.NEXT_PUBLIC_DEFAULT_IMG_URL, process.env.NEXT_PUBLIC_DEFAULT_IMG_URL];
 
   const modulosSinCodigo = carrera.modulos ?? [];
 
