@@ -47,3 +47,7 @@ backend/coverage
 /backend/.env.production
 /frontend/.env*
 .env*
+/backend/.env
+/backend/.env.production
+/mi-frontend/.env*
+.env*
