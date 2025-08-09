@@ -43,3 +43,7 @@ backend/coverage
 # ─── EDITORES / SISTEMAS ────────────────
 .vscode/
 .idea/
+/backend/.env
+/backend/.env.production
+/frontend/.env*
+.env*
