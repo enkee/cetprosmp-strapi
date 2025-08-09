@@ -99,7 +99,17 @@
     "titulo": "Estética Personal",
     "tituloComercial": "Estética Personal",
     "slug": "estetica-personal",
-    "descripcion2": [],
+    "descripcion2": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Hola Amigos..",
+            "type": "text"
+          }
+        ]
+      }
+    ],
     "imagen": null,
     "imagenes": []
   },

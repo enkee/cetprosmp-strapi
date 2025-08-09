@@ -8,7 +8,7 @@ coverage/
 node_modules/
 
 # ─── ARCHIVOS DE ENTORNO ────────────────
-.env*
+#.env*
 !.env.example
 
 # ─── LOGS Y TEMPORALES ──────────────────

@@ -19,11 +19,11 @@ node_modules/
 
 # ─── ARCHIVOS DE ENTORNO ────────────────
 #.env*
-!.env.example
-backend/.env*
-!backend/.env.example
-mi-frontend/.env*
-!mi-frontend/.env.example
+#!.env.example
+#backend/.env*
+#!backend/.env.example
+#mi-frontend/.env*
+#!mi-frontend/.env.example
 
 # ─── NEXT.JS FRONTEND (mi-frontend) ─────
 mi-frontend/.next/
