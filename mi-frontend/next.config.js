@@ -9,7 +9,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // ✅ Configuración del optimizador de imágenes de Next
+  // ✅ Configuración del optimizador de imágenes de Next //esto es nuevo
   images: {
     // Entrega las imágenes optimizadas como "inline" (no descarga el archivo)
     // contentDispositionType: 'inline',
