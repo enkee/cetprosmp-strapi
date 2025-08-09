@@ -1,5 +1,5 @@
 import type { Carrera } from './carreras';
-import type { Modulo } from './modulos';
+//import type { Modulo } from './modulos';
 
 export interface Especialidad {
     id: number;

@@ -1,5 +1,5 @@
 // ecosystem.config.js
-module.exports = {
+module.exports = { 
   apps: [
     {
       name: 'strapi',
