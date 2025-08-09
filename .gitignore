@@ -6,6 +6,7 @@ Thumbs.db
 *.swo
 *.bak
 *.pem
+*.sql
 
 # ─── DEPENDENCIAS ────────────────────────
 node_modules/
@@ -18,36 +19,27 @@ node_modules/
 !.yarn/versions
 
 # ─── ARCHIVOS DE ENTORNO ────────────────
-.env*
-!.env.example
-backend/.env*
-!backend/.env.example
-mi-frontend/.env*
-!mi-frontend/.env.example
+**/.env*
+!**/.env.example
+
+# ─── EDITORES / SISTEMAS ────────────────
+.vscode/
+.idea/
 
 # ─── NEXT.JS FRONTEND (mi-frontend) ─────
 mi-frontend/.next/
 mi-frontend/out/
 mi-frontend/build/
 mi-frontend/.vercel
-mi-frontend/coverage
+mi-frontend/coverage/
 mi-frontend/next-env.d.ts
 mi-frontend/*.tsbuildinfo
+mi-frontend/public/data/
 
 # ─── STRAPI BACKEND (backend) ───────────
 backend/.cache/
 backend/build/
 backend/public/uploads/
-backend/coverage
-
-# ─── EDITORES / SISTEMAS ────────────────
-.vscode/
-.idea/
-/backend/.env
-/backend/.env.production
-/frontend/.env*
-.env*
-/backend/.env
-/backend/.env.production
-/mi-frontend/.env*
-.env*
+backend/public/backups/
+backend/dist/
+backend/coverage/
