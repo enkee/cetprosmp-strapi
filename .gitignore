@@ -1,6 +1,7 @@
 # ─── GENERAL ─────────────────────────────
 .DS_Store
 Thumbs.db
+deploy-production.sh
 *.log
 *.swp
 *.swo
