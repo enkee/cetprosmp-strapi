@@ -27,7 +27,7 @@ export default function AcordionGeneral() {
       // Usuario logueado: abrir Intranet y sus primeros descendientes
       const loadIntranet = async () => {
         try {
-          const res = await fetch("/data/intranet.json");
+          const res = await fetch("/intranet.json");
           const data: Item[] = await res.json();
 
           if (!Array.isArray(data) || data.length === 0) return;

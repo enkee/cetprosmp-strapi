@@ -29,7 +29,7 @@ export default function AcordionIntranet({
   const rootId = "intranet";
 
   useEffect(() => {
-    fetch("/data/intranet.json")
+    fetch("/intranet.json")
       .then((res) => res.json())
       .then((data: Item[]) => setItems(data));
   }, []);

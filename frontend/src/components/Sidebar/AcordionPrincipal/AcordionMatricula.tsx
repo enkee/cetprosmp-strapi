@@ -29,7 +29,7 @@ export default function AcordionMatricula({
   const rootId = "principal-matricula";
 
   useEffect(() => {
-    fetch("/data/matricula.json")
+    fetch("/matricula.json")
       .then((res) => res.json())
       .then((data: Item[]) => {
         const validItems = data.filter(
