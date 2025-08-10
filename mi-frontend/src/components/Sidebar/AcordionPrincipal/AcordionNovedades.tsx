@@ -29,7 +29,7 @@ export default function AcordionNovedades({
   const rootId = "principal-novedades";
 
   useEffect(() => {
-    fetch("/data/novedades.json")
+    fetch("/novedades.json")
       .then((res) => res.json())
       .then((data: Item[]) => {
         const validItems = data.filter(

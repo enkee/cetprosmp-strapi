@@ -34,7 +34,7 @@ export default function MatriculaMenuWrapper() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/data/matricula.json");
+        const res = await fetch("/matricula.json");
         const data: Item[] = await res.json();
 
         const conContenido = data

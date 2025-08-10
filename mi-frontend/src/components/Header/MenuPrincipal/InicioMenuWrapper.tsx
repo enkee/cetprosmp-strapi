@@ -29,7 +29,7 @@ export default function InicioMenuWrapper() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/data/inicio.json");
+      const res = await fetch("/inicio.json");
       const data: Item[] = await res.json();
 
       const conSubitems = data

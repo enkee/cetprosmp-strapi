@@ -38,7 +38,7 @@ export default function IntranetMenuWrapper() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/data/intranet.json");
+      const res = await fetch("/intranet.json");
       const data: Item[] = await res.json();
 
       const withContent = data

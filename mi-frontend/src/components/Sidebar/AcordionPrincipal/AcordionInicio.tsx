@@ -29,7 +29,7 @@ export default function AcordionInicio({
   const rootId = "principal-inicio";
 
   useEffect(() => {
-    fetch("/data/inicio.json")
+    fetch("/inicio.json")
       .then((res) => res.json())
       .then((data: Item[]) => {
         const validItems = data.filter(

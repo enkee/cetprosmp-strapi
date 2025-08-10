@@ -39,7 +39,7 @@ export default function NosotrosMenuWrapper() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/data/nosotros.json");
+        const res = await fetch("/nosotros.json");
         const data: Item[] = await res.json();
 
         const sorted = [

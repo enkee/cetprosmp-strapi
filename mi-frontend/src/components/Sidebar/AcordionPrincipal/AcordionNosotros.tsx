@@ -29,7 +29,7 @@ export default function AcordionNosotros({
   const rootId = "principal-nosotros";
 
   useEffect(() => {
-    fetch("/data/nosotros.json")
+    fetch("/nosotros.json")
       .then((res) => res.json())
       .then((data: Item[]) => {
         const validItems = data.filter(

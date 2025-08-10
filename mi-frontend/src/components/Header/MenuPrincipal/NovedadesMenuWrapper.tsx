@@ -41,7 +41,7 @@ export default function NovedadesMenuWrapper() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/data/novedades.json");
+        const res = await fetch("/novedades.json");
         const data: Item[] = await res.json();
 
         const sorted = [
