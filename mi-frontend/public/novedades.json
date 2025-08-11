@@ -1,20 +1,12 @@
 [
   {
     "id": 1,
-    "titulo": "Noticias",
-    "slug": "noticias"
-    
-  },
-  {
-    "id": 2,
-    "titulo": "Eventos",
-    "slug": "eventos"
-    
-  },
-  {
-    "id": 3,
-    "titulo": "Comunicados",
-    "slug": "comunicados"
-    
+    "titulo": "Publicaciones",
+    "path": "/publicaciones",
+    "subitems": [
+      { "id": 1, "titulo": "Noticias",   "path": "/publicaciones/noticias" },
+      { "id": 2, "titulo": "Eventos",    "path": "/publicaciones/eventos" },
+      { "id": 3, "titulo": "Comunicados","path": "/publicaciones/comunicados" }
+    ]
   }
 ]

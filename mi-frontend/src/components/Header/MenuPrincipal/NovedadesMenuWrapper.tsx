@@ -2,87 +2,77 @@
 // src/components/Header/MenuPrincipal/NovedadesMenuWrapper.tsx
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, Popper } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import Link from "next/link";
+import NextLink from "next/link"; // usamos NextLink en el Button
 import { cerrarTodosLosMenus } from "./_otros/CerrarTodoMenus";
 
-// Componentes personalizados
 import {
   MenuContainer,
   MenuItemBox,
   MenuText,
 } from "@/components/Header/MenuPrincipal/FullCustomMenu/FullCustomMenu";
 
-// Tipos
-type SubItem = {
+type NavItem = {
   id: number;
   titulo: string;
-  slug: string;
-};
-
-type Item = {
-  id: number;
-  titulo: string;
-  slug: string;
-  contenido?: SubItem[];
+  path?: string;
+  subitems?: NavItem[];
 };
 
 export default function NovedadesMenuWrapper() {
   const anchoMenu = "156px";
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState<Item[]>([]);
-  const [subItems, setSubItems] = useState<SubItem[] | null>(null);
-  const [anchorSub, setAnchorSub] = useState<HTMLElement | null>(null);
+  const [items, setItems] = useState<NavItem[]>([]);
 
-  const anchorRef = useRef<HTMLButtonElement | null>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const anchorRef = useRef<HTMLAnchorElement | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        const res = await fetch("/novedades.json");
-        const data: Item[] = await res.json();
+        const res = await fetch("/novedades.json", { cache: "no-store" });
+        const data: NavItem[] = await res.json();
 
-        const sorted = [
-          ...data
-            .filter((i) => i.contenido && i.contenido.length > 0)
-            .sort((a, b) => a.id - b.id),
-          ...data
-            .filter((i) => !i.contenido || i.contenido.length === 0)
-            .sort((a, b) => a.id - b.id),
+        let entries: NavItem[] = [];
+        const padre = Array.isArray(data)
+          ? data.find((d) => Array.isArray(d.subitems) && d.subitems.length > 0)
+          : undefined;
+
+        if (padre?.subitems) {
+          entries = padre.subitems;
+        } else if (Array.isArray(data)) {
+          entries = data.filter((d) => d.path && d.path !== "/publicaciones");
+        }
+
+        // Solo Noticias/Eventos/Comunicados en este orden
+        const orden = [
+          "/publicaciones/noticias",
+          "/publicaciones/eventos",
+          "/publicaciones/comunicados",
         ];
 
-        setItems(sorted);
-      } catch (err) {
-        setItems([]); // JSON inválido
+        setItems(
+          entries
+            .filter((e) => orden.includes(e.path || ""))
+            .sort(
+              (a, b) => orden.indexOf(a.path || "") - orden.indexOf(b.path || "")
+            )
+        );
+      } catch {
+        setItems([]);
       }
-    };
-
-    fetchData();
+    })();
   }, []);
 
   useEffect(() => {
-    const handleCloseAllMenus = () => {
-      setOpen(false);
-      setSubItems(null);
-      setAnchorSub(null);
-    };
-
-    window.addEventListener("cerrar-todos-los-menus", handleCloseAllMenus);
-    return () => {
-      window.removeEventListener("cerrar-todos-los-menus", handleCloseAllMenus);
-    };
+    const handleCloseAll = () => setOpen(false);
+    window.addEventListener("cerrar-todos-los-menus", handleCloseAll);
+    return () => window.removeEventListener("cerrar-todos-los-menus", handleCloseAll);
   }, []);
 
   const startCloseTimer = () => {
-    closeTimer.current = setTimeout(() => {
-      setOpen(false);
-      setSubItems(null);
-      setAnchorSub(null);
-    }, 150);
+    closeTimer.current = setTimeout(() => setOpen(false), 150);
   };
-
   const cancelCloseTimer = () => {
     if (closeTimer.current) {
       clearTimeout(closeTimer.current);
@@ -90,33 +80,26 @@ export default function NovedadesMenuWrapper() {
     }
   };
 
-  const handleItemEnter = (
-    e: React.MouseEvent<HTMLDivElement>,
-    contenido?: SubItem[]
-  ) => {
-    if (contenido && contenido.length > 0) {
-      const sortedSub = [...contenido].sort((a, b) => a.id - b.id);
-      setSubItems(sortedSub);
-      setAnchorSub(e.currentTarget);
-    } else {
-      setSubItems(null);
-      setAnchorSub(null);
-    }
-  };
-
   return (
     <Box
-      ref={wrapperRef}
       onMouseEnter={() => {
         cancelCloseTimer();
         setOpen(true);
       }}
       onMouseLeave={startCloseTimer}
     >
-      <Button color="inherit" ref={anchorRef}>
+      {/* Botón: enlace a la página principal de Publicaciones */}
+      <Button
+        color="inherit"
+        href="/publicaciones"
+        component={NextLink}
+        ref={anchorRef}
+        onClick={cerrarTodosLosMenus}
+      >
         Novedades
       </Button>
 
+      {/* Menú: un solo nivel (Noticias / Eventos / Comunicados) */}
       {items.length > 0 && (
         <Popper
           open={open}
@@ -125,60 +108,21 @@ export default function NovedadesMenuWrapper() {
           sx={{ zIndex: 1300 }}
         >
           <MenuContainer ancho={anchoMenu} sx={{ ml: -5 }}>
-            {items.map((item) => {
-              const hasSubmenu = item.contenido && item.contenido.length > 0;
-
-              return hasSubmenu ? (
-                <MenuItemBox
-                  key={item.id}
-                  onMouseEnter={(e) => handleItemEnter(e, item.contenido)}
-                  iconRight={
-                    <ArrowRightIcon
-                      fontSize="small"
-                      sx={{ mt: 0.5, alignSelf: "flex-start" }}
-                    />
-                  }
-                >
+            {items.map((item) => (
+              <Link
+                key={item.id}
+                href={item.path || "#"}
+                onClick={cerrarTodosLosMenus}
+                style={{ textDecoration: "none" }}
+              >
+                <MenuItemBox>
                   <MenuText>{item.titulo}</MenuText>
                 </MenuItemBox>
-              ) : (
-                <Link
-                  key={item.id}
-                  href={`/novedades/${item.slug}`}
-                  onClick={cerrarTodosLosMenus}
-                  style={{ textDecoration: "none" }}
-                >
-                  <MenuItemBox>
-                    <MenuText>{item.titulo}</MenuText>
-                  </MenuItemBox>
-                </Link>
-              );
-            })}
+              </Link>
+            ))}
           </MenuContainer>
         </Popper>
       )}
-
-      <Popper
-        open={Boolean(subItems)}
-        anchorEl={anchorSub}
-        placement="right-start"
-        sx={{ zIndex: 1300 }}
-      >
-        <MenuContainer ancho={anchoMenu} sx={{ mt: 0 }}>
-          {subItems?.map((sub) => (
-            <Link
-              key={sub.id}
-              href={`/novedades/${sub.slug}`}
-              onClick={cerrarTodosLosMenus}
-              style={{ textDecoration: "none" }}
-            >
-              <MenuItemBox>
-                <MenuText>{sub.titulo}</MenuText>
-              </MenuItemBox>
-            </Link>
-          ))}
-        </MenuContainer>
-      </Popper>
     </Box>
   );
 }

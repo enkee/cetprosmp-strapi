@@ -22,14 +22,18 @@
     },
     "tipo": {
       "type": "enumeration",
-      "enum": ["noticia", "evento", "aviso"],
+      "enum": [
+        "noticia",
+        "evento",
+        "comunicado"
+      ],
       "required": true
     },
     "descripcionCorta": {
       "type": "text"
     },
-    "contenido": {
-      "type": "richtext"
+    "contenido1": {
+      "type": "blocks"
     },
     "contenido2": {
       "type": "customField",
@@ -59,13 +63,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "galeria": {
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "videosYoutube": {
       "type": "component",

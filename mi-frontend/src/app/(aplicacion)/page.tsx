@@ -1,11 +1,37 @@
 // src/app/page.tsx
-import { Box, Typography } from '@mui/material';
+import { Box, Stack, Typography, Divider } from '@mui/material';
+import Link from 'next/link';
+
 import CarruselPortada from '@/components/Carrusel/CarruselPortada';
-import BotonInscripcion from '@/components/Generales/BotonInscripcion';
-import Footer from '@/components/Footer/Footer'; // ✅ IMPORTACIÓN AGREGADA
+import ListaPublicaciones from '@/components/Publicaciones/ListaPublicaciones';
 import metadata from './metadata';
 
 export { metadata };
+
+function Section({
+  title,
+  href,
+  children,
+}: {
+  title: string;
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Box component="section" sx={{ px: { xs: 2, md: 0 }, py: 3 }}>
+      <Stack direction="row" alignItems="baseline" justifyContent="space-between" sx={{ mb: 1 }}>
+        <Typography component="h2" variant="h5" fontWeight={700}>
+          {title}
+        </Typography>
+        <Typography component={Link} href={href} color="primary" sx={{ textDecoration: 'none' }}>
+          Ver todas →
+        </Typography>
+      </Stack>
+      <Divider sx={{ mb: 2 }} />
+      {children}
+    </Box>
+  );
+}
 
 export default function HomePage() {
   const structuredData = {
@@ -36,45 +62,49 @@ export default function HomePage() {
   };
 
   return (
-    <>
-      <Box component="main">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+    <Box component="main" sx={{ pt: { md: '10px', xs: '0px' } }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
-        {/* Sección de bienvenida */}
-        <Box
-          component="section"
-          sx={{ padding: 4, display: { xs: 'none', md: 'block' }, textAlign: 'center' }}
-        >
-          <Typography component="h1" variant="h4" gutterBottom>
-            Bienvenidos al CETPRO de "San Martín de Porres"
-          </Typography>
-          <Typography component="h2" variant="h6">
-            Formando Técnicos Emprendedores
-            <BotonInscripcion sx={{ ml: 4 }} />
-          </Typography>
-        </Box>
-
-        {/* Carrusel de especialidades */}
-        <Box component="section">
-          <CarruselPortada />
-        </Box>
-
-        {/* Texto de prueba SEO */}
-        <Box component="section" sx={{ p: 2 }}>
-          {[...Array(15)].map((_, i) => (
-            <Typography key={i} component="p" paragraph>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo adipisci qui, fugit
-              labore nulla, distinctio quo reprehenderit veniam maxime laborum ipsum eaque ad
-              voluptatibus! Facilis deleniti accusantium neque sequi assumenda tenetur?
-            </Typography>
-          ))}
-        </Box>
-
-
+      {/* Carrusel */}
+      <Box component="section">
+        <CarruselPortada />
       </Box>
-    </>
+
+      {/* Noticias: 3 más relevantes (destacados primero, luego fecha) */}
+      <Section title="Noticias" href="/publicaciones/noticias">
+        <ListaPublicaciones
+          showFilters={false}
+          tipo="noticia"
+          limit={3}
+          destacadosPrimero
+          columnsMd={3} // 3 por fila en md
+        />
+      </Section>
+
+      {/* Eventos: 4 más relevantes */}
+      <Section title="Eventos" href="/publicaciones/eventos">
+        <ListaPublicaciones
+          showFilters={false}
+          tipo="evento"
+          limit={3}
+          destacadosPrimero
+          columnsMd={3} // 4 por fila en md
+        />
+      </Section>
+
+      {/* Comunicados: 4 más relevantes */}
+      <Section title="Comunicados" href="/publicaciones/comunicados">
+        <ListaPublicaciones
+          showFilters={false}
+          tipo="comunicado"
+          limit={3}
+          destacadosPrimero
+          columnsMd={3} // 4 por fila en md
+        />
+      </Section>
+    </Box>
   );
 }
