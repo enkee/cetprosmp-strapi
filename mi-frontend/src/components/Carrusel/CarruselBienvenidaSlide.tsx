@@ -5,7 +5,6 @@ import { useTheme } from '@mui/material/styles';
 import BotonInscripcion from '@/components/Generales/BotonInscripcion';
 import PortadaImagen from './PortadaImagen';
 
-
 export default function CarruselBienvenidaSlide() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -23,57 +22,72 @@ export default function CarruselBienvenidaSlide() {
         backgroundImage: `url(${fondoDefault})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        display: 'flex',
-        flexDirection: isMobile ? 'column' : 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: isMobile ? 2 : 4,
+        // < md: columna como estaba; md+: grid 2 columnas 50/50
+        display: { xs: 'flex', md: 'grid' },
+        flexDirection: { xs: 'column', md: 'unset' },
+        gridTemplateColumns: { md: '1fr 1fr' },
+        alignItems: { xs: 'center', md: 'stretch' },
+        justifyContent: { xs: 'space-between', md: 'unset' },
+        p: { xs: 2, md: 4 },
+        gap: { md: 2 },
       }}
     >
-      {/* Texto principal */}
+      {/* Columna izquierda (md+): texto y botón CENTRADOS */}
       <Box
         sx={{
-          //flex: 1,
-          color: 'black',
           height: '100%',
-          maxHeight: {xs:'60%', md:'43%'},
-          textShadow: '0 0 3px white, 0 0 6px white',
+          color: 'black',
+          textShadow: '0 0 8px rgba(255,255,255,0.95), 0 0 16px rgba(255,255,255,0.85)',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-evenly',
-          alignItems: 'center' ,
+          justifyContent: 'center',
+          alignItems: { xs: 'center', md: 'center' }, // 👈 centrado
+          textAlign: 'center',                           // 👈 centrado
           gap: 2,
-          textAlign: isMobile ? 'center' : 'left',
+          maxHeight: { xs: '60%', md: 'none' },
         }}
       >
-        <Typography variant={isMobile ? 'h4' : 'h3'}  fontWeight="bold">
+        <Typography
+          component="h2"
+          fontWeight="bold"
+          sx={{
+            fontSize: 'clamp(1.8rem, 4vw + 0.2rem, 2.3rem)',
+            lineHeight: 1.1,
+          }}
+        >
           Bienvenido al CETPRO de<br />"SAN MARTIN DE PORRES"
         </Typography>
-        <Typography variant={isMobile ? 'h6' : 'body1'}>
+
+        <Typography
+          sx={{
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            fontWeight: 500,
+          }}
+        >
           Formando Técnicos Emprendedores
         </Typography>
+
         <BotonInscripcion />
       </Box>
 
-      {/* Imagen de portada predeterminada */}
-      {/*<Box
+      {/* Columna derecha (md+): IMAGEN CENTRADA H/V */}
+      <Box
         sx={{
-          width: isMobile ? '80%' : '40%',
-          maxWidth: 400,
-          alignSelf: 'center',
-          position: 'relative',
-          aspectRatio: '3/4',
-          mt: isMobile ? 2 : 0,
+          display: 'flex',
+          alignItems: 'center',   // 👈 centrado vertical
+          justifyContent: 'center', // 👈 centrado horizontal
+          mt: { xs: 2, md: 0 },
         }}
       >
-        <Image
-          src={portadaDefault}
-          alt="Portada bienvenida"
-          fill
-          style={{ objectFit: 'contain' }}
+        <PortadaImagen
+          portada={portadaDefault}
+          // sx={{
+          //   width: { xs: '80%', md: '100%' },
+          //   maxWidth: { xs: 400, md: '50%' },
+          //   //maxHeight: { xs: '57vh', md: '85%' },
+          // }}
         />
-      </Box>*/}
-      <PortadaImagen portada={portadaDefault} sx={{maxHeight: {sm:'57%'}}}/>
+      </Box>
     </Box>
   );
 }

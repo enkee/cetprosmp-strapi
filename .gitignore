@@ -9,6 +9,7 @@ deploy.sh
 *.bak
 *.pem
 *.sql
+*.sh
 
 # ─── DEPENDENCIAS ────────────────────────
 node_modules/

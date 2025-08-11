@@ -14,25 +14,25 @@ export async function generarPublicaciones(strapi: any) {
             'id',
             'titulo',
             'slug',
-            'tipo',
+            'tipo',                // 'noticia' | 'evento' | 'comunicado'
             'descripcionCorta',
-            'contenido',
-            'contenido2',
+            'contenido1',          // 👈 blocks (dejamos tal cual)
+            'contenido2',          // CKEditor (HTML)
             'fechaPublicacion',
             'fechaEventoInicio',
             'fechaEventoFin',
             'ubicacion',
-            'destacado'
+            'destacado',
         ],
         populate: {
             imagenPrincipal: { fields: ['url'] },
             galeria: { fields: ['url'] },
-            videosYoutube: true,
+            videosYoutube: true, // ajusta campos internos si tu componente tiene otros nombres
         },
-        sort: { fechaPublicacion: 'desc' }
+        sort: { fechaPublicacion: 'desc' },
     });
 
-    const baseUrl = process.env.STRAPI_PUBLIC_URL?.replace(/\/$/, '') || '';
+    const baseUrl = (process.env.STRAPI_PUBLIC_URL || '').replace(/\/$/, '');
 
     const data = publicaciones.map((pub: any) => ({
         id: pub.id,
@@ -40,7 +40,9 @@ export async function generarPublicaciones(strapi: any) {
         slug: pub.slug ?? '',
         tipo: pub.tipo,
         descripcionCorta: pub.descripcionCorta ?? '',
-        contenido: pub.contenido ?? '',
+        // 👇 Exportamos el blocks crudo, sin transformar:
+        contenido1: pub.contenido1 ?? [],
+        // 👇 CKEditor HTML (si lo usas en otra parte):
         contenido2: pub.contenido2 ?? '',
         fechaPublicacion: pub.fechaPublicacion ?? null,
         fechaEventoInicio: pub.fechaEventoInicio ?? null,
@@ -48,11 +50,10 @@ export async function generarPublicaciones(strapi: any) {
         ubicacion: pub.ubicacion ?? '',
         destacado: pub.destacado ?? false,
         imagenPrincipal: pub.imagenPrincipal?.url ? `${baseUrl}${pub.imagenPrincipal.url}` : null,
-        galeria: (pub.galeria ?? []).map((img: any) => `${baseUrl}${img.url}`),
-        videosYoutube: (pub.videosYoutube ?? []).map((v: any) => ({
-            id: v.id,
-            url: v.url
-        })),
+        galeria: Array.isArray(pub.galeria) ? pub.galeria.map((img: any) => `${baseUrl}${img.url}`) : [],
+        videosYoutube: Array.isArray(pub.videosYoutube)
+            ? pub.videosYoutube.map((v: any) => ({ id: v.id, url: v.url }))
+            : [],
     }));
 
     const nuevoContenido = JSON.stringify(data, null, 2);
