@@ -25,6 +25,8 @@ export default function User() {
   const [isMounted, setIsMounted] = useState(false);
 
   const anchorRef = useRef<HTMLDivElement | null>(null);
+  // API base URL from environment variable
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? '';
 
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -60,7 +62,7 @@ export default function User() {
         const googleUser = resGoogle.data;
 
         const resStrapi = await axios.post(
-          "http://localhost:1337/api/google-sync",
+          `${API_BASE}/api/google-sync`,
           {
             email: googleUser.email,
             name: {
