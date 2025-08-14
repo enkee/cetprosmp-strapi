@@ -43,8 +43,11 @@ export default function User() {
 
         const googleUser = resGoogle.data;
 
+        const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? '';
+
+
         const resStrapi = await axios.post(
-          "http://localhost:1337/api/google-sync",
+          `${API_BASE}/api/google-sync`,
           {
             email: googleUser.email,
             name: {

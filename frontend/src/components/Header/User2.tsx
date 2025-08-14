@@ -9,7 +9,7 @@ import {
   Typography,
   ClickAwayListener,
 } from "@mui/material";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
